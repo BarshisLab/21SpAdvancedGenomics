@@ -18,6 +18,15 @@
 5. save your README.md and follow the following steps to push it to your git repository **NOTE** change the web address to your specific git repo
 ``` sh
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git init
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git add README.md 
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git commit -m 'first commit'
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git branch -M main
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git remote add origin https://github.com/BarshisLab/21SpDansAdvancedGenomicsLog.git
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git push -u origin main
+```
+* below is the output I got when I went through the process
+``` sh
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git init
 Initialized empty Git repository in /Users/danbarshis/dansstuff/Projeks/ODU/CoursesTaught_Taken/21-01_Sp_AdvancedGenomicsDataAnalysis/DemoFolder/21SpDansAdvancedGenomicsLog/.git/
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git add README.md 
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git commit -m 'first commit'
@@ -36,4 +45,10 @@ Total 3 (delta 0), reused 0 (delta 0)
 To https://github.com/BarshisLab/21SpDansAdvancedGenomicsLog.git
  * [new branch]      main -> main
 Branch 'main' set up to track remote branch 'main' from 'origin'.
+```
+6. Then, to update your notebook/log each session, just edit your README.md file locally in your text editor and push any updates to your github page like so
+``` sh
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git add README.md 
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git commit -m 'updating readme'
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git push -u origin main
 ```
