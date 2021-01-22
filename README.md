@@ -107,7 +107,7 @@ drwxrwxrwx 5 dbarshis users  107 Jan 21 23:51 ..
 -rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fastq.tar.gz
 
 #7- add these commands to your notebook file
-You're looking at it buddy!
+You\'re looking at it buddy!
 
 #8- calculate how many sequences are in each file and add these results to your notebook file
 [dbarshis@turing1 exercises]$ head -1 Exercise2.fasta
