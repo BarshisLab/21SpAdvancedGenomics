@@ -152,4 +152,18 @@ contigs >= 2000bp = 135
 Yup!
 
 #13- push your notebook file to your github page
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git add README.md 
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git commit -m 'updating readme with day02 exercises'
+[main 21e0267] updating readme with day02 exercises
+ 1 file changed, 101 insertions(+), 1 deletion(-)
+(base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git push -u origin main
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 2.53 KiB | 2.53 MiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/BarshisLab/21SpDansAdvancedGenomicsLog.git
+   e7b36c3..21e0267  main -> main
+Branch 'main' set up to track remote branch 'main' from 'origin'.
 
