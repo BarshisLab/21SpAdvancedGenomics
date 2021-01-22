@@ -231,3 +231,4 @@ HADB01-A_S17_L002_R1_001.fastq     HADB03-B_S50_L004_R1_001.fastq.gz  HADB05-D_S
 #6- Push your notebook file to your github page (document everything on your github notebook, drink a beer, and realize that all that work was just to get the data organized to start looking at it!)
 Done, except the beer, too early
 ```
+## Day03
