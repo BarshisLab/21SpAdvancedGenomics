@@ -231,4 +231,34 @@ HADB01-A_S17_L002_R1_001.fastq     HADB03-B_S50_L004_R1_001.fastq.gz  HADB05-D_S
 #6- Push your notebook file to your github page (document everything on your github notebook, drink a beer, and realize that all that work was just to get the data organized to start looking at it!)
 Done, except the beer, too early
 ```
-## Day03
+## Day 02 22-Jan-2021
+* exercises day02
+``` sh
+[dbarshis@turing1 exercises]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/exercises
+[dbarshis@turing1 exercises]$ gunzip -c Exercise2.fasta.gz > Exercise2.fasta
+[dbarshis@turing1 exercises]$ tar -zxvf Exercise2.fastq.tar.gz 
+Exercise2.fastq
+
+8- calculate how many sequences are in each file and add these results to your notebook file
+[dbarshis@turing1 exercises]$ grep -c ">" Exercise2.fasta
+138
+[dbarshis@turing1 exercises]$ wc -l Exercise2.fastq
+245216 Exercise2.fastq
+[dbarshis@turing1 exercises]$ echo 245216/4 | bc -l
+61304.00000000000000000000
+[dbarshis@turing1 exercises]$ grep -c "@HS3:" Exercise2.fastq
+61304
+[dbarshis@coreV3-23-021 exercises]$ ../../scripts/avg_cov_len_fasta_advbioinf.py Exercise2.fasta
+The total number of sequences is 138
+The average sequence length is 126640
+The total number of bases is 17476447
+The minimum sequence length is 1122
+The maximum sequence length is 562680
+The N50 is 187037
+Median Length = 92612
+contigs < 150bp = 0
+contigs >= 500bp = 138
+contigs >= 1000bp = 138
+contigs >= 2000bp = 135
+```
