@@ -1,6 +1,7 @@
 2021_Spring_Dan's Advanced Genomics Notebook
 ================
 # How to make a notebook file on git
+[Here's an epic example on markdown syntax](https://github.com/eriqande/thompson-et-al-2020-chinook-salmon-migration-timing/blob/master/README.md) and reproducible research from Eric Anderson at NOAA
 1. Create a new repository on the github website under your user account
 2. make a new local directory with the same name as your repository online
 ``` sh
