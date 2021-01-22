@@ -53,3 +53,103 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git commit -m 'updating readme'
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git push -u origin main
 ```
+###Day02 2021-Jan-22
+``` sh
+#Exercise day02:
+#1- Logon to the cluster @turing.hpc.odu.edu
+[dbarshis@turing1 dan]$ ls
+db_exercise1.txt  groundrules.txt  scripts
+
+#2- Make a directory in your course workspace called data
+[dbarshis@turing1 dan]$ mkdir data
+
+#3- Make a directory called exercises in your data directory
+[dbarshis@turing1 dan]$ mkdir exercises
+
+#4- execute a pwd command and start a log of your commands with a header for today's date in your README.md github logfile in your workspace
+[dbarshis@turing1 exercises]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/exercises
+
+#5- cp the Exercise2.fasta.gz and Exercise2.fastq.tar.gz files into your exercises directory from the /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day02 directory
+[dbarshis@turing1 exercises]$ cp /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day02/Exercise2.fast* ./
+[dbarshis@turing1 exercises]$ ls
+db_exercise1.txt  Exercise2.fasta.gz  Exercise2.fastq.tar.gz
+[dbarshis@turing1 exercises]$ ls -alh
+total 13M
+drwxrwxrwx 2 dbarshis users  110 Jan 21 23:55 .
+drwxrwxrwx 5 dbarshis users  107 Jan 21 23:51 ..
+-rwxrwxrwx 1 dbarshis users   75 Jan 20 15:05 db_exercise1.txt
+-rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fasta.gz
+-rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fastq.tar.gz
+
+#6- unzip and untar the files
+[dbarshis@turing1 exercises]$ gunzip -c Exercise2.fasta.gz > Exercise2.fasta
+[dbarshis@turing1 exercises]$ ls
+db_exercise1.txt  Exercise2.fasta  Exercise2.fasta.gz  Exercise2.fastq.tar.gz
+[dbarshis@turing1 exercises]$ ls -alh
+total 37M
+drwxrwxrwx 2 dbarshis users  143 Jan 21 23:56 .
+drwxrwxrwx 5 dbarshis users  107 Jan 21 23:51 ..
+-rwxrwxrwx 1 dbarshis users   75 Jan 20 15:05 db_exercise1.txt
+-rwxrwxrwx 1 dbarshis users  17M Jan 21 23:56 Exercise2.fasta
+-rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fasta.gz
+-rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fastq.tar.gz
+[dbarshis@turing1 exercises]$ tar -zxvf Exercise2.fastq.tar.gz 
+Exercise2.fastq
+[dbarshis@turing1 exercises]$ ls -alh
+total 63M
+drwxrwxrwx 2 dbarshis users  176 Jan 21 23:59 .
+drwxrwxrwx 5 dbarshis users  107 Jan 21 23:51 ..
+-rwxrwxrwx 1 dbarshis users   75 Jan 20 15:05 db_exercise1.txt
+-rwxrwxrwx 1 dbarshis users  17M Jan 21 23:56 Exercise2.fasta
+-rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fasta.gz
+-rw-r--r-- 1 dbarshis users  18M Sep  2  2015 Exercise2.fastq
+-rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fastq.tar.gz
+
+#7- add these commands to your notebook file
+You're looking at it buddy!
+
+#8- calculate how many sequences are in each file and add these results to your notebook file
+[dbarshis@turing1 exercises]$ head -1 Exercise2.fasta
+>scaffold10078|size20675
+[dbarshis@turing1 exercises]$ grep -c '>' Exercise2.fasta
+138
+[dbarshis@turing1 exercises]$ head -1 Exercise2.fastq
+@HS3:541:HAYTUADXX:1:1101:1297:1938 1:N:0:AGTTCC
+[dbarshis@turing1 exercises]$ grep -c '@HS3' Exercise2.fastq
+61304
+[dbarshis@turing1 exercises]$ wc -l Exercise2.fastq
+245216 Exercise2.fastq
+[dbarshis@turing1 exercises]$ echo 245216/4 | bc -l
+61304.00000000000000000000
+
+#9- cp the avg_cov_len_fasta_advbioinf.py from the /cm/shared/courses/dbarshis/21AdvGenomics/scripts directory into your class scripts directory
+[dbarshis@turing1 exercises]$ cp /cm/shared/courses/dbarshis/21AdvGenomics/scripts/avg_cov_len_fasta_advbioinf.py ../scripts/
+
+#10- start an interactive compute session and re-navigate to your exercises directory
+[dbarshis@turing1 exercises]$ salloc
+salloc: Pending job allocation 9268620
+salloc: job 9268620 queued and waiting for resources
+salloc: job 9268620 has been allocated resources
+salloc: Granted job allocation 9268620
+[dbarshis@coreV1-22-005 exercises]$ 
+
+#11- run the avg_cov_len_fasta_DJB.py script on your Exercise2.fasta file by typing the path to the script followed by the Exercise2.fasta file name
+[dbarshis@coreV1-22-005 exercises]$ ../scripts/avg_cov_len_fasta_advbioinf.py Exercise2.fasta
+The total number of sequences is 138
+The average sequence length is 126640
+The total number of bases is 17476447
+The minimum sequence length is 1122
+The maximum sequence length is 562680
+The N50 is 187037
+Median Length = 92612
+contigs < 150bp = 0
+contigs >= 500bp = 138
+contigs >= 1000bp = 138
+contigs >= 2000bp = 135
+
+#12- did you add all these entries to your notebook file, including the results of the script?
+Yup!
+
+#13- push your notebook file to your github page
+
