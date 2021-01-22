@@ -53,7 +53,7 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git commit -m 'updating readme'
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git push -u origin main
 ```
-###Day02 2021-Jan-22
+## Day02 2021-Jan-22
 ``` sh
 #Exercise day02:
 #1- Logon to the cluster @turing.hpc.odu.edu
@@ -166,4 +166,4 @@ Total 3 (delta 0), reused 0 (delta 0)
 To https://github.com/BarshisLab/21SpDansAdvancedGenomicsLog.git
    e7b36c3..21e0267  main -> main
 Branch 'main' set up to track remote branch 'main' from 'origin'.
-
+```
