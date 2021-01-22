@@ -53,7 +53,7 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git commit -m 'updating readme'
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git push -u origin main
 ```
-## Day02 2021-Jan-22
+## Day02 Exercises 2021-Jan-22
 ``` sh
 #Exercise day02:
 #1- Logon to the cluster @turing.hpc.odu.edu
@@ -166,4 +166,43 @@ Total 3 (delta 0), reused 0 (delta 0)
 To https://github.com/BarshisLab/21SpDansAdvancedGenomicsLog.git
    e7b36c3..21e0267  main -> main
 Branch 'main' set up to track remote branch 'main' from 'origin'.
+```
+## Day02 Homework 2021-Jan-22
+```sh
+#1- Write an sbatch script to cp the files /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/originalfastqs/ into your own data directory
+[dbarshis@coreV1-22-005 data]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data
+[dbarshis@coreV1-22-005 data]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data
+[dbarshis@coreV1-22-005 data]$ nano DansFQCp.sh
+
+#2- Add the content of your sbatch script to your logfile
+[dbarshis@coreV1-22-005 data]$ cat DansFQCp.sh 
+#!/bin/bash -l
+
+#SBATCH -o dansfastqcopy.txt
+#SBATCH -n 1
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=DansFastqCp
+
+cp /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/originalfastqs/*.fastq.gz /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/
+
+#3- submit the slurm script (sbatch scripname.sh) and verify that it's working (by squeue -u yourusername multiple times and checking the destination directory to make sure the files are being created)
+[dbarshis@coreV1-22-005 data]$ sbatch DansFQCp.sh 
+Submitted batch job 9268621
+[dbarshis@coreV1-22-005 data]$ squeue -u dbarshis
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON) 
+           9268621      main DansFast dbarshis  R       0:18      1 coreV1-22-005 
+[dbarshis@coreV1-22-005 data]$ ls
+dansfastqcopy.txt                  HADB01-B_S18_L002_R1_001.fastq.gz  HADB01-E_S21_L002_R1_001.fastq.gz
+DansFQCp.sh                        HADB01-C_S19_L002_R1_001.fastq.gz  HADB01-F_S22_L002_R1_001.fastq.gz
+HADB01-A_S17_L002_R1_001.fastq.gz  HADB01-D_S20_L002_R1_001.fastq.gz
+
+#4- Make sure this is all documented on your github notebook
+Yup
+
+#5- Write a sbatch script to gunzip all the fastq.gz files
+
+#6- Push your notebook file to your github page (document everything on your github notebook, drink a beer, and realize that all that work was just to get the data organized to start looking at it!)
 ```
