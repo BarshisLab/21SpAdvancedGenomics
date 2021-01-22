@@ -203,6 +203,31 @@ HADB01-A_S17_L002_R1_001.fastq.gz  HADB01-D_S20_L002_R1_001.fastq.gz
 Yup
 
 #5- Write a sbatch script to gunzip all the fastq.gz files
+[dbarshis@turing1 data]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data
+[dbarshis@turing1 data]$ cat DansFQGunzip.sh 
+#!/bin/bash -l
+
+#SBATCH -o dansfastqgunzip.txt
+#SBATCH -n 1
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=Fastqgunzip
+
+gunzip ./*.fastq.gz
+
+[dbarshis@turing1 data]$ sbatch ./DansFQGunzip.sh 
+Submitted batch job 9268704
+[dbarshis@turing1 data]$ squeue -u dbarshis
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON) 
+           9268704      main Fastqgun dbarshis  R       0:10      1 coreV3-23-024 
+[dbarshis@turing1 data]$ ls
+dansfastqcopy.txt                  HADB02-N_S46_L003_R1_001.fastq.gz  HADB04-P_S80_L005_R1_001.fastq.gz
+dansfastqgunzip.txt                HADB02-O_S47_L003_R1_001.fastq.gz  HADB05-A_S81_L006_R1_001.fastq.gz
+DansFQCp.sh                        HADB02-P_S48_L003_R1_001.fastq.gz  HADB05-B_S82_L006_R1_001.fastq.gz
+DansFQGunzip.sh                    HADB03-A_S49_L004_R1_001.fastq.gz  HADB05-C_S83_L006_R1_001.fastq.gz
+HADB01-A_S17_L002_R1_001.fastq     HADB03-B_S50_L004_R1_001.fastq.gz  HADB05-D_S84_L006_R1_001.fastq.gz
 
 #6- Push your notebook file to your github page (document everything on your github notebook, drink a beer, and realize that all that work was just to get the data organized to start looking at it!)
+Done, except the beer, too early
 ```
