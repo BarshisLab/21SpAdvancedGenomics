@@ -420,7 +420,28 @@ mv HADB06-P_S112_L007_R1_001.fastq RI_B_07_18.fastq
 ```
 
 5- Uncomment the last line of the renaming script in your scripts folder that starts with os.popen and comment out the next to last line that starts with print
+``` sh
+[dbarshis@turing1 fastq]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq
+[dbarshis@turing1 fastq]$ nano ../../scripts/renamer_advbioinf.py 
+```
+
 6- write a sbatch script to rename all the .fastq files according to the renaming table using your renamer_advbioinf.py script
+``` sh
+[dbarshis@turing1 fastq]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq
+[dbarshis@turing1 fastq]$ cat DansRenamer.sh 
+#!/bin/bash -l
+
+#SBATCH -o dansrenamer.txt
+#SBATCH -n 1
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=FastqRename
+
+../../scripts/renamer_advbioinf.py renamingtable_complete.txt
+```
+
 7- Make sure this is all documented on your github page
 8- The naming convention for the files is as follows:
 	SOURCEPOPULATION_SYMBIOTICSTATE_GENOTYPE_TEMPERATURE.fastq
