@@ -63,34 +63,36 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git push -u origin main
 ```
 
+7. To then enable a github pages version of your notebook, follow the instructions [here](https://nicolas-van.github.io/easy-markdown-to-github-pages/) after [creating/signing up for/enabling](https://pages.github.com/) a github pages account
+
 ## Day02 Exercises 2021-Jan-22
 
 Exercise day02:
-1- Logon to the cluster @turing.hpc.odu.edu
+1. Logon to the cluster @turing.hpc.odu.edu
 
 ``` sh
 [dbarshis@turing1 dan]$ ls
 db_exercise1.txt  groundrules.txt  scripts
 ```
 
-2- Make a directory in your course workspace called data
+2. Make a directory in your course workspace called data
 ``` sh
 [dbarshis@turing1 dan]$ mkdir data
 ```
 
-3- Make a directory called exercises in your data directory
+3. Make a directory called exercises in your data directory
 ``` sh
 [dbarshis@turing1 dan]$ mkdir exercises
 ```
 
-4- execute a pwd command and start a log of your commands with a header for today's date in your README.md github logfile in your workspace
+4. execute a pwd command and start a log of your commands with a header for today's date in your README.md github logfile in your workspace
 
 ``` sh
 [dbarshis@turing1 exercises]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/exercises
 ```
 
-5- cp the Exercise2.fasta.gz and Exercise2.fastq.tar.gz files into your exercises directory from the /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day02 directory
+5. cp the Exercise2.fasta.gz and Exercise2.fastq.tar.gz files into your exercises directory from the /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day02 directory
 
 ``` sh
 [dbarshis@turing1 exercises]$ cp /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day02/Exercise2.fast* ./
@@ -105,7 +107,7 @@ drwxrwxrwx 5 dbarshis users  107 Jan 21 23:51 ..
 -rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fastq.tar.gz
 ```
 
-6- unzip and untar the files
+6. unzip and untar the files
 ``` sh
 [dbarshis@turing1 exercises]$ gunzip -c Exercise2.fasta.gz > Exercise2.fasta
 [dbarshis@turing1 exercises]$ ls
@@ -131,10 +133,10 @@ drwxrwxrwx 5 dbarshis users  107 Jan 21 23:51 ..
 -rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fastq.tar.gz
 ```
 
-7- add these commands to your notebook file
+7. add these commands to your notebook file
   * You\'re looking at it buddy!
 
-8- calculate how many sequences are in each file and add these results to your notebook file
+8. calculate how many sequences are in each file and add these results to your notebook file
 ``` sh
 [dbarshis@turing1 exercises]$ head -1 Exercise2.fasta
 >scaffold10078|size20675
@@ -150,13 +152,13 @@ drwxrwxrwx 5 dbarshis users  107 Jan 21 23:51 ..
 61304.00000000000000000000
 ```
 
-9- cp the avg_cov_len_fasta_advbioinf.py from the /cm/shared/courses/dbarshis/21AdvGenomics/scripts directory into your class scripts directory
+9. cp the avg_cov_len_fasta_advbioinf.py from the /cm/shared/courses/dbarshis/21AdvGenomics/scripts directory into your class scripts directory
 
 ``` sh
 [dbarshis@turing1 exercises]$ cp /cm/shared/courses/dbarshis/21AdvGenomics/scripts/avg_cov_len_fasta_advbioinf.py ../scripts/
 ```
 
-10- start an interactive compute session and re-navigate to your exercises directory
+10. start an interactive compute session and re-navigate to your exercises directory
 
 ``` sh
 [dbarshis@turing1 exercises]$ salloc
@@ -167,7 +169,7 @@ salloc: Granted job allocation 9268620
 [dbarshis@coreV1-22-005 exercises]$ 
 ```
 
-11- run the avg_cov_len_fasta_DJB.py script on your Exercise2.fasta file by typing the path to the script followed by the Exercise2.fasta file name
+11. run the avg_cov_len_fasta_DJB.py script on your Exercise2.fasta file by typing the path to the script followed by the Exercise2.fasta file name
 
 ``` sh
 [dbarshis@coreV1-22-005 exercises]$ ../scripts/avg_cov_len_fasta_advbioinf.py Exercise2.fasta
@@ -184,10 +186,10 @@ contigs >= 1000bp = 138
 contigs >= 2000bp = 135
 ```
 
-12- did you add all these entries to your notebook file, including the results of the script?
+12. did you add all these entries to your notebook file, including the results of the script?
   * **Yup!**
 
-13- push your notebook file to your github page
+13. push your notebook file to your github page
 
 ``` sh
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git add README.md 
@@ -208,7 +210,7 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.
 
 ## Day02 Homework 2021-Jan-22
 
-1- Write an sbatch script to cp the files /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/originalfastqs/ into your own data directory
+1. Write an sbatch script to cp the files /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/originalfastqs/ into your own data directory
 
 ``` sh
 [dbarshis@coreV1-22-005 data]$ pwd
@@ -218,7 +220,7 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.
 [dbarshis@coreV1-22-005 data]$ nano DansFQCp.sh
 ```
 
-2- Add the content of your sbatch script to your logfile
+2. Add the content of your sbatch script to your logfile
 ``` sh
 [dbarshis@coreV1-22-005 data]$ cat DansFQCp.sh 
 #!/bin/bash -l
@@ -232,7 +234,7 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.
 cp /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/originalfastqs/*.fastq.gz /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/
 ```
 
-3- submit the slurm script (sbatch scripname.sh) and verify that it's working (by squeue -u yourusername multiple times and checking the destination directory to make sure the files are being created)
+3. submit the slurm script (sbatch scripname.sh) and verify that it's working (by squeue -u yourusername multiple times and checking the destination directory to make sure the files are being created)
 
 ``` sh
 [dbarshis@coreV1-22-005 data]$ sbatch DansFQCp.sh 
@@ -246,10 +248,10 @@ DansFQCp.sh                        HADB01-C_S19_L002_R1_001.fastq.gz  HADB01-F_S
 HADB01-A_S17_L002_R1_001.fastq.gz  HADB01-D_S20_L002_R1_001.fastq.gz
 ```
 
-4- Make sure this is all documented on your github notebook
+4. Make sure this is all documented on your github notebook
   * Yup
 
-5- Write a sbatch script to gunzip all the fastq.gz files
+5. Write a sbatch script to gunzip all the fastq.gz files
 
 ``` sh
 [dbarshis@turing1 data]$ pwd
@@ -278,7 +280,7 @@ DansFQGunzip.sh                    HADB03-A_S49_L004_R1_001.fastq.gz  HADB05-C_S
 HADB01-A_S17_L002_R1_001.fastq     HADB03-B_S50_L004_R1_001.fastq.gz  HADB05-D_S84_L006_R1_001.fastq.gz
 ```
 
-6- Push your notebook file to your github page (document everything on your github notebook, drink a beer, and realize that all that work was just to get the data organized to start looking at it!)
+6. Push your notebook file to your github page (document everything on your github notebook, drink a beer, and realize that all that work was just to get the data organized to start looking at it!)
 
   * Done, except the beer, too early
   
@@ -288,12 +290,12 @@ HADB01-A_S17_L002_R1_001.fastq     HADB03-B_S50_L004_R1_001.fastq.gz  HADB05-D_S
 [dbarshis@turing1 dan]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan
 ```
-1- cp the /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day03 directory (and files) to your sandbox
+1. cp the /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day03 directory (and files) to your sandbox
 
 ``` sh
 [dbarshis@turing1 dan]$ cp -r /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day03/ ./
 ```
-2- mkdir a fastq directory in your data directory and mv all the .fastq files into this directory
+2. mkdir a fastq directory in your data directory and mv all the .fastq files into this directory
 
 ``` sh
 [dbarshis@turing1 dan]$ cd data
@@ -303,7 +305,7 @@ HADB01-A_S17_L002_R1_001.fastq     HADB03-B_S50_L004_R1_001.fastq.gz  HADB05-D_S
 [dbarshis@turing1 data]$ mv *.fastq ./fastq/
 ```
 
-3- cp the renamingtable_complete.txt from the day03 directory into your fastq directory and the /cm/shared/courses/dbarshis/21AdvGenomics/scripts/renamer_advbioinf.py script into your sandbox scripts folder and less the new script and check out the usage statement
+3. cp the renamingtable_complete.txt from the day03 directory into your fastq directory and the /cm/shared/courses/dbarshis/21AdvGenomics/scripts/renamer_advbioinf.py script into your sandbox scripts folder and less the new script and check out the usage statement
 
 ``` sh
 [dbarshis@turing1 data]$ cp ../day03/renamingtable_complete.txt ./fastq/
@@ -314,7 +316,7 @@ HADB01-A_S17_L002_R1_001.fastq     HADB03-B_S50_L004_R1_001.fastq.gz  HADB05-D_S
 #### this script take the entries in the first column of table and renames (mv's) them to files with the names in the second column
 ```
 
-4- run the renamer_advbioinf.py script in your fastq folder using the renamingtable_complete.txt as practice and verify the output to the screen by hand
+4. run the renamer_advbioinf.py script in your fastq folder using the renamingtable_complete.txt as practice and verify the output to the screen by hand
 
 ``` sh
 [dbarshis@turing1 data]$ cd fastq/
@@ -419,14 +421,14 @@ mv HADB06-O_S111_L007_R1_001.fastq RI_W_07_18.fastq
 mv HADB06-P_S112_L007_R1_001.fastq RI_B_07_18.fastq
 ```
 
-5- Uncomment the last line of the renaming script in your scripts folder that starts with os.popen and comment out the next to last line that starts with print
+5. Uncomment the last line of the renaming script in your scripts folder that starts with os.popen and comment out the next to last line that starts with print
 ``` sh
 [dbarshis@turing1 fastq]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq
 [dbarshis@turing1 fastq]$ nano ../../scripts/renamer_advbioinf.py 
 ```
 
-6- write a sbatch script and submit it to rename all the .fastq files according to the renaming table using your renamer_advbioinf.py script
+6. write a sbatch script and submit it to rename all the .fastq files according to the renaming table using your renamer_advbioinf.py script
 ``` sh
 [dbarshis@turing1 fastq]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq
@@ -454,7 +456,7 @@ Submitted batch job 9270345
 
 ```
 
-7- Make sure this is all documented on your github page
+7. Make sure this is all documented on your github page
 ``` sh
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % pwd
 /Users/danbarshis/dansstuff/Projeks/ODU/CoursesTaught_Taken/21-01_Sp_AdvancedGenomicsDataAnalysis/DemoFolder/21SpDansAdvancedGenomicsLog
@@ -475,14 +477,14 @@ To https://github.com/BarshisLab/21SpDansAdvancedGenomicsLog.git
 Branch 'main' set up to track remote branch 'main' from 'origin'.
 ```
 
-8- The naming convention for the files is as follows:
+8. The naming convention for the files is as follows:
 	SOURCEPOPULATION_SYMBIOTICSTATE_GENOTYPE_TEMPERATURE.fastq
 	There are 2 sources: Virginia and Rhode Island
 	There are 2 symbiotic states: Brown and White
 
-9- Next, you're going to start the process of adapter clipping and quality trimming all the renamed .fastq files in batches, by lane
+9. Next, you're going to start the process of adapter clipping and quality trimming all the renamed .fastq files in batches, by lane
 
-10- cp the script /cm/shared/courses/dbarshis/21AdvGenomics/scripts/Trimclipfilterstatsbatch_advbioinf.py into your scripts directory
+10. cp the script /cm/shared/courses/dbarshis/21AdvGenomics/scripts/Trimclipfilterstatsbatch_advbioinf.py into your scripts directory
 
 ``` sh
 [dbarshis@coreV2-25-047 data]$ pwd
@@ -490,7 +492,7 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.
 [dbarshis@coreV2-25-047 data]$ cp /cm/shared/courses/dbarshis/21AdvGenomics/scripts/Trimclipfilterstatsbatch_advbioinf.py ../scripts/
 ```
 
-11- Less/head the new script and check out the usage statement
+11. Less/head the new script and check out the usage statement
 
 ``` sh
 [dbarshis@coreV2-25-047 data]$ head -14 ../scripts/Trimclipfilterstatsbatch_advbioinf.py
@@ -509,7 +511,7 @@ import sys, os
 # -l option in qualitytrim and adapterclip (the length threshold for throwing out short reads)
 ```
 
-12- cp the /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day03/adapterlist_advbioinf.txt into the working directory with your fastq files
+12. cp the /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day03/adapterlist_advbioinf.txt into the working directory with your fastq files
 
 ``` sh
 [dbarshis@turing1 fastq]$ pwd
@@ -517,7 +519,7 @@ import sys, os
 [dbarshis@turing1 fastq]$ cp /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day03/adapterlist_advbioinf.txt ./
 ```
 
-13- Make a sbatch script for the Trimclipfilter... script and run it on your fastq files
+13. Make a sbatch script for the Trimclipfilter... script and run it on your fastq files
 
 ``` sh
 
@@ -562,7 +564,7 @@ Submitted batch job 9270353
            9270351      main djbTrimT dbarshis  R       7:04      1 coreV2-25-005 
 ```
 
-14- This will take a while (like days)
+14. This will take a while (like days)
 
-15- Now might be a good time to update everything on your github
+15. Now might be a good time to update everything on your github
    * Jeez, i'm working on it
