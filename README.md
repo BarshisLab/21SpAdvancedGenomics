@@ -291,12 +291,10 @@ HADB01-A_S17_L002_R1_001.fastq     HADB03-B_S50_L004_R1_001.fastq.gz  HADB05-D_S
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan
 ```
 1. cp the /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day03 directory (and files) to your sandbox
-
 ``` sh
 [dbarshis@turing1 dan]$ cp -r /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day03/ ./
 ```
 2. mkdir a fastq directory in your data directory and mv all the .fastq files into this directory
-
 ``` sh
 [dbarshis@turing1 dan]$ cd data
 [dbarshis@turing1 data]$ mkdir fastq
@@ -304,9 +302,7 @@ HADB01-A_S17_L002_R1_001.fastq     HADB03-B_S50_L004_R1_001.fastq.gz  HADB05-D_S
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data
 [dbarshis@turing1 data]$ mv *.fastq ./fastq/
 ```
-
 3. cp the renamingtable_complete.txt from the day03 directory into your fastq directory and the /cm/shared/courses/dbarshis/21AdvGenomics/scripts/renamer_advbioinf.py script into your sandbox scripts folder and less the new script and check out the usage statement
-
 ``` sh
 [dbarshis@turing1 data]$ cp ../day03/renamingtable_complete.txt ./fastq/
 [dbarshis@turing1 data]$ cp /cm/shared/courses/dbarshis/21AdvGenomics/scripts/renamer_advbioinf.py ../scripts/
@@ -315,9 +311,7 @@ HADB01-A_S17_L002_R1_001.fastq     HADB03-B_S50_L004_R1_001.fastq.gz  HADB05-D_S
 ####usage renamer.py renamingtable
 #### this script take the entries in the first column of table and renames (mv's) them to files with the names in the second column
 ```
-
 4. run the renamer_advbioinf.py script in your fastq folder using the renamingtable_complete.txt as practice and verify the output to the screen by hand
-
 ``` sh
 [dbarshis@turing1 data]$ cd fastq/
 [dbarshis@turing1 fastq]$ pwd
@@ -420,14 +414,12 @@ mv HADB06-N_S110_L007_R1_001.fastq VA_B_07_18.fastq
 mv HADB06-O_S111_L007_R1_001.fastq RI_W_07_18.fastq
 mv HADB06-P_S112_L007_R1_001.fastq RI_B_07_18.fastq
 ```
-
 5. Uncomment the last line of the renaming script in your scripts folder that starts with os.popen and comment out the next to last line that starts with print
 ``` sh
 [dbarshis@turing1 fastq]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq
 [dbarshis@turing1 fastq]$ nano ../../scripts/renamer_advbioinf.py 
 ```
-
 6. write a sbatch script and submit it to rename all the .fastq files according to the renaming table using your renamer_advbioinf.py script
 ``` sh
 [dbarshis@turing1 fastq]$ pwd
@@ -455,7 +447,6 @@ Submitted batch job 9270345
            9270345      main FastqRen dbarshis  R       0:01      1 coreV2-25-047 
 
 ```
-
 7. Make sure this is all documented on your github page
 ``` sh
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % pwd
@@ -476,14 +467,12 @@ To https://github.com/BarshisLab/21SpDansAdvancedGenomicsLog.git
    8f5c8ef..81bbb64  main -> main
 Branch 'main' set up to track remote branch 'main' from 'origin'.
 ```
-
 8. The naming convention for the files is as follows:
-	SOURCEPOPULATION_SYMBIOTICSTATE_GENOTYPE_TEMPERATURE.fastq
-	There are 2 sources: Virginia and Rhode Island
-	There are 2 symbiotic states: Brown and White
-
+  * SOURCEPOPULATION_SYMBIOTICSTATE_GENOTYPE_TEMPERATURE.fastq
+  * There are 2 sources: Virginia and Rhode Island
+  * There are 2 symbiotic states: Brown and White
+  
 9. Next, you're going to start the process of adapter clipping and quality trimming all the renamed .fastq files in batches, by lane
-
 10. cp the script /cm/shared/courses/dbarshis/21AdvGenomics/scripts/Trimclipfilterstatsbatch_advbioinf.py into your scripts directory
 
 ``` sh
@@ -491,9 +480,7 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data
 [dbarshis@coreV2-25-047 data]$ cp /cm/shared/courses/dbarshis/21AdvGenomics/scripts/Trimclipfilterstatsbatch_advbioinf.py ../scripts/
 ```
-
 11. Less/head the new script and check out the usage statement
-
 ``` sh
 [dbarshis@coreV2-25-047 data]$ head -14 ../scripts/Trimclipfilterstatsbatch_advbioinf.py
 #!/usr/bin/env python
@@ -510,17 +497,13 @@ import sys, os
 # -t option in qualitytrim (the lower threshold quality score for trimming)
 # -l option in qualitytrim and adapterclip (the length threshold for throwing out short reads)
 ```
-
 12. cp the /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day03/adapterlist_advbioinf.txt into the working directory with your fastq files
-
 ``` sh
 [dbarshis@turing1 fastq]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq
 [dbarshis@turing1 fastq]$ cp /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day03/adapterlist_advbioinf.txt ./
 ```
-
 13. Make a sbatch script for the Trimclipfilter... script and run it on your fastq files
-
 ``` sh
 
 [dbarshis@coreV2-25-047 Testing]$ pwd 
@@ -563,8 +546,6 @@ Submitted batch job 9270353
            9270353      main djbTrimF dbarshis  R       0:34      1 coreV2-25-005 
            9270351      main djbTrimT dbarshis  R       7:04      1 coreV2-25-005 
 ```
-
 14. This will take a while (like days)
-
 15. Now might be a good time to update everything on your github
    * Jeez, i'm working on it
