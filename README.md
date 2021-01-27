@@ -4,19 +4,24 @@
 [Here's an epic example on markdown syntax](https://github.com/eriqande/thompson-et-al-2020-chinook-salmon-migration-timing/blob/master/README.md) and reproducible research from Eric Anderson at NOAA. Click on the "raw" box to see the raw text file
 1. Create a new repository on the github website under your user account
 2. make a new local directory with the same name as your repository online
+
 ``` sh
 (base) danbarshis@BIOLLBB0 21-01_Sp_AdvancedGenomicsDataAnalysis % mkdir 21SpDansAdvancedGenomicsLog
 ```
+
 3. cd into that local directory
+
 ``` sh
 (base) danbarshis@BIOLLBB0 21-01_Sp_AdvancedGenomicsDataAnalysis % cd 21SpDansAdvancedGenomicsLog
 ```
+
 4. create a README.md file in your text editor using the [markdown syntax](https://www.markdownguide.org/basic-syntax). This will be your log/notebook file and will be what you update and push to git each session
 * use \# for main headers
 # main headers
 * use \## for sub headers
 ## sub headers
 5. save your README.md and follow the following steps to push it to your git repository **NOTE** change the web address to your specific git repo
+
 ``` sh
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git init
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git add README.md 
@@ -25,7 +30,9 @@
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git remote add origin https://github.com/BarshisLab/21SpDansAdvancedGenomicsLog.git
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git push -u origin main
 ```
+
 * below is the output I got when I went through the process
+
 ``` sh
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git init
 Initialized empty Git repository in /Users/danbarshis/dansstuff/Projeks/ODU/CoursesTaught_Taken/21-01_Sp_AdvancedGenomicsDataAnalysis/DemoFolder/21SpDansAdvancedGenomicsLog/.git/
@@ -47,30 +54,45 @@ To https://github.com/BarshisLab/21SpDansAdvancedGenomicsLog.git
  * [new branch]      main -> main
 Branch 'main' set up to track remote branch 'main' from 'origin'.
 ```
+
 6. Then, to update your notebook/log each session, just edit your README.md file locally in your text editor and push any updates to your github page like so
+
 ``` sh
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git add README.md 
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git commit -m 'updating readme'
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git push -u origin main
 ```
+
 ## Day02 Exercises 2021-Jan-22
+
+Exercise day02:
+1- Logon to the cluster @turing.hpc.odu.edu
+
 ``` sh
-#Exercise day02:
-#1- Logon to the cluster @turing.hpc.odu.edu
 [dbarshis@turing1 dan]$ ls
 db_exercise1.txt  groundrules.txt  scripts
+```
 
-#2- Make a directory in your course workspace called data
+2- Make a directory in your course workspace called data
+``` sh
 [dbarshis@turing1 dan]$ mkdir data
+```
 
-#3- Make a directory called exercises in your data directory
+3- Make a directory called exercises in your data directory
+``` sh
 [dbarshis@turing1 dan]$ mkdir exercises
+```
 
-#4- execute a pwd command and start a log of your commands with a header for today's date in your README.md github logfile in your workspace
+4- execute a pwd command and start a log of your commands with a header for today's date in your README.md github logfile in your workspace
+
+``` sh
 [dbarshis@turing1 exercises]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/exercises
+```
 
-#5- cp the Exercise2.fasta.gz and Exercise2.fastq.tar.gz files into your exercises directory from the /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day02 directory
+5- cp the Exercise2.fasta.gz and Exercise2.fastq.tar.gz files into your exercises directory from the /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day02 directory
+
+``` sh
 [dbarshis@turing1 exercises]$ cp /cm/shared/courses/dbarshis/21AdvGenomics/assignments_exercises/day02/Exercise2.fast* ./
 [dbarshis@turing1 exercises]$ ls
 db_exercise1.txt  Exercise2.fasta.gz  Exercise2.fastq.tar.gz
@@ -81,8 +103,10 @@ drwxrwxrwx 5 dbarshis users  107 Jan 21 23:51 ..
 -rwxrwxrwx 1 dbarshis users   75 Jan 20 15:05 db_exercise1.txt
 -rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fasta.gz
 -rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fastq.tar.gz
+```
 
-#6- unzip and untar the files
+6- unzip and untar the files
+``` sh
 [dbarshis@turing1 exercises]$ gunzip -c Exercise2.fasta.gz > Exercise2.fasta
 [dbarshis@turing1 exercises]$ ls
 db_exercise1.txt  Exercise2.fasta  Exercise2.fasta.gz  Exercise2.fastq.tar.gz
@@ -105,11 +129,13 @@ drwxrwxrwx 5 dbarshis users  107 Jan 21 23:51 ..
 -rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fasta.gz
 -rw-r--r-- 1 dbarshis users  18M Sep  2  2015 Exercise2.fastq
 -rwxr-xr-x 1 dbarshis users 4.3M Jan 21 23:55 Exercise2.fastq.tar.gz
+```
 
-#7- add these commands to your notebook file
-You\'re looking at it buddy!
+7- add these commands to your notebook file
+  * You\'re looking at it buddy!
 
-#8- calculate how many sequences are in each file and add these results to your notebook file
+8- calculate how many sequences are in each file and add these results to your notebook file
+``` sh
 [dbarshis@turing1 exercises]$ head -1 Exercise2.fasta
 >scaffold10078|size20675
 [dbarshis@turing1 exercises]$ grep -c '>' Exercise2.fasta
@@ -122,19 +148,28 @@ You\'re looking at it buddy!
 245216 Exercise2.fastq
 [dbarshis@turing1 exercises]$ echo 245216/4 | bc -l
 61304.00000000000000000000
+```
 
-#9- cp the avg_cov_len_fasta_advbioinf.py from the /cm/shared/courses/dbarshis/21AdvGenomics/scripts directory into your class scripts directory
+9- cp the avg_cov_len_fasta_advbioinf.py from the /cm/shared/courses/dbarshis/21AdvGenomics/scripts directory into your class scripts directory
+
+``` sh
 [dbarshis@turing1 exercises]$ cp /cm/shared/courses/dbarshis/21AdvGenomics/scripts/avg_cov_len_fasta_advbioinf.py ../scripts/
+```
 
-#10- start an interactive compute session and re-navigate to your exercises directory
+10- start an interactive compute session and re-navigate to your exercises directory
+
+``` sh
 [dbarshis@turing1 exercises]$ salloc
 salloc: Pending job allocation 9268620
 salloc: job 9268620 queued and waiting for resources
 salloc: job 9268620 has been allocated resources
 salloc: Granted job allocation 9268620
 [dbarshis@coreV1-22-005 exercises]$ 
+```
 
-#11- run the avg_cov_len_fasta_DJB.py script on your Exercise2.fasta file by typing the path to the script followed by the Exercise2.fasta file name
+11- run the avg_cov_len_fasta_DJB.py script on your Exercise2.fasta file by typing the path to the script followed by the Exercise2.fasta file name
+
+``` sh
 [dbarshis@coreV1-22-005 exercises]$ ../scripts/avg_cov_len_fasta_advbioinf.py Exercise2.fasta
 The total number of sequences is 138
 The average sequence length is 126640
@@ -147,11 +182,14 @@ contigs < 150bp = 0
 contigs >= 500bp = 138
 contigs >= 1000bp = 138
 contigs >= 2000bp = 135
+```
 
-#12- did you add all these entries to your notebook file, including the results of the script?
-Yup!
+12- did you add all these entries to your notebook file, including the results of the script?
+  * **Yup!**
 
-#13- push your notebook file to your github page
+13- push your notebook file to your github page
+
+``` sh
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git add README.md 
 (base) danbarshis@BIOLLBB0 21SpDansAdvancedGenomicsLog % git commit -m 'updating readme with day02 exercises'
 [main 21e0267] updating readme with day02 exercises
@@ -167,16 +205,21 @@ To https://github.com/BarshisLab/21SpDansAdvancedGenomicsLog.git
    e7b36c3..21e0267  main -> main
 Branch 'main' set up to track remote branch 'main' from 'origin'.
 ```
+
 ## Day02 Homework 2021-Jan-22
-```sh
-#1- Write an sbatch script to cp the files /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/originalfastqs/ into your own data directory
+
+1- Write an sbatch script to cp the files /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/originalfastqs/ into your own data directory
+
+``` sh
 [dbarshis@coreV1-22-005 data]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data
 [dbarshis@coreV1-22-005 data]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data
 [dbarshis@coreV1-22-005 data]$ nano DansFQCp.sh
+```
 
-#2- Add the content of your sbatch script to your logfile
+2- Add the content of your sbatch script to your logfile
+``` sh
 [dbarshis@coreV1-22-005 data]$ cat DansFQCp.sh 
 #!/bin/bash -l
 
@@ -187,8 +230,11 @@ Branch 'main' set up to track remote branch 'main' from 'origin'.
 #SBATCH --job-name=DansFastqCp
 
 cp /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/originalfastqs/*.fastq.gz /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/
+```
 
-#3- submit the slurm script (sbatch scripname.sh) and verify that it's working (by squeue -u yourusername multiple times and checking the destination directory to make sure the files are being created)
+3- submit the slurm script (sbatch scripname.sh) and verify that it's working (by squeue -u yourusername multiple times and checking the destination directory to make sure the files are being created)
+
+``` sh
 [dbarshis@coreV1-22-005 data]$ sbatch DansFQCp.sh 
 Submitted batch job 9268621
 [dbarshis@coreV1-22-005 data]$ squeue -u dbarshis
@@ -198,11 +244,14 @@ Submitted batch job 9268621
 dansfastqcopy.txt                  HADB01-B_S18_L002_R1_001.fastq.gz  HADB01-E_S21_L002_R1_001.fastq.gz
 DansFQCp.sh                        HADB01-C_S19_L002_R1_001.fastq.gz  HADB01-F_S22_L002_R1_001.fastq.gz
 HADB01-A_S17_L002_R1_001.fastq.gz  HADB01-D_S20_L002_R1_001.fastq.gz
+```
 
-#4- Make sure this is all documented on your github notebook
-Yup
+4- Make sure this is all documented on your github notebook
+  * Yup
 
-#5- Write a sbatch script to gunzip all the fastq.gz files
+5- Write a sbatch script to gunzip all the fastq.gz files
+
+``` sh
 [dbarshis@turing1 data]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data
 [dbarshis@turing1 data]$ cat DansFQGunzip.sh 
@@ -227,10 +276,12 @@ dansfastqgunzip.txt                HADB02-O_S47_L003_R1_001.fastq.gz  HADB05-A_S
 DansFQCp.sh                        HADB02-P_S48_L003_R1_001.fastq.gz  HADB05-B_S82_L006_R1_001.fastq.gz
 DansFQGunzip.sh                    HADB03-A_S49_L004_R1_001.fastq.gz  HADB05-C_S83_L006_R1_001.fastq.gz
 HADB01-A_S17_L002_R1_001.fastq     HADB03-B_S50_L004_R1_001.fastq.gz  HADB05-D_S84_L006_R1_001.fastq.gz
-
-#6- Push your notebook file to your github page (document everything on your github notebook, drink a beer, and realize that all that work was just to get the data organized to start looking at it!)
-Done, except the beer, too early
 ```
+
+6- Push your notebook file to your github page (document everything on your github notebook, drink a beer, and realize that all that work was just to get the data organized to start looking at it!)
+
+  * Done, except the beer, too early
+  
 ## Day 03 Homework 27-Jan-2021
 * day 03 homework
 ``` sh
