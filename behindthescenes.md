@@ -39,4 +39,4 @@ for i in *_clippedtrimmed.fastq; do bowtie2 --rg-id ${i%_clippedtrimmed.fastq} \
 
 [dbarshis@turing1 RI_B_14]$ sbatch bowtiealn.sh 
 Submitted batch job 9271002
-    ```
+```
