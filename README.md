@@ -553,6 +553,7 @@ Submitted batch job 9270353
 ## Homework day04 29-Jan-2021
 Homework day04 (document all this in your notebook, don't forget to pwd before each entry to remind yourself where you were working):
 1. Add your trimclipstats.txt output to the full class datafile /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/Fulltrimclipstatstable.txt using the following steps
+
 1a. run `/cm/shared/courses/dbarshis/21AdvGenomics/scripts/Schafran_trimstatstable_advbioinf_clippedtrimmed.py -h` to examine usage
 
 ``` sh
