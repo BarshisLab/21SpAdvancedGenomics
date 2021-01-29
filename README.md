@@ -553,7 +553,7 @@ Submitted batch job 9270353
 ## Homework day04 29-Jan-2021
 Homework day04 (document all this in your notebook, don't forget to pwd before each entry to remind yourself where you were working):
 1. Add your trimclipstats.txt output to the full class datafile /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/Fulltrimclipstatstable.txt using the following steps
-    1. run `/cm/shared/courses/dbarshis/21AdvGenomics/scripts/Schafran_trimstatstable_advbioinf_clippedtrimmed.py -h` to examine usage
+1a. run `/cm/shared/courses/dbarshis/21AdvGenomics/scripts/Schafran_trimstatstable_advbioinf_clippedtrimmed.py -h` to examine usage
 
 ``` sh
 [dbarshis@turing1 RI_B_14]$ pwd
@@ -570,13 +570,13 @@ Options (-c and -v must be listed separately to run together):
 -c	Use comma delimiter instead of tabs
 -v	Verbose mode (print steps to stdout)
 ```
-2. Run the script on your data with the outputfilename YOURNAME_trimclipstatsout.txt
+1b. Run the script on your data with the outputfilename YOURNAME_trimclipstatsout.txt
 
 ``` sh
 [dbarshis@turing1 fastq]$ /cm/shared/courses/dbarshis/21AdvGenomics/scripts/Schafran_trimstatstable_advbioinf_clippedtrimmed.py trimclipstats.txt DAN_trimclipstatsout.txt
 ```
 
-    3. Add YOURNAME_trimclipstatsout.txt to the class file by running tail -n +2 YOURNAME_trimclipstatsout.txt >> /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/Fulltrimclipstatstable.txt
+1c. Add YOURNAME_trimclipstatsout.txt to the class file by running tail -n +2 YOURNAME_trimclipstatsout.txt >> /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/Fulltrimclipstatstable.txt
 
 ``` sh
 [dbarshis@turing1 fastq]$ tail -n +2 DAN_trimclipstatsout.txt >> /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/Fulltrimclipstatstable.txt
