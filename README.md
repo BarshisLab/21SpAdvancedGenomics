@@ -549,3 +549,71 @@ Submitted batch job 9270353
 14. This will take a while (like days)
 15. Now might be a good time to update everything on your github
    * Jeez, i'm working on it
+
+## Homework day04 29-Jan-2021
+Homework day04 (document all this in your notebook, don't forget to pwd before each entry to remind yourself where you were working):
+1. Add your trimclipstats.txt output to the full class datafile /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/Fulltrimclipstatstable.txt using the following steps
+    1. run /cm/shared/courses/dbarshis/21AdvGenomics/scripts/Schafran_trimstatstable_advbioinf_clippedtrimmed.py -h to examine usage
+
+``` sh
+[dbarshis@turing1 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq
+[dbarshis@turing1 RI_B_14]$ /cm/shared/courses/dbarshis/21AdvGenomics/scripts/Schafran_trimstatstable_advbioinf_clippedtrimmed.py -h
+Written by Peter Schafran pscha005@odu.edu 5-Oct-2015
+
+This script takes a stats output file from fastx_clipper and converts it into a table.
+
+Usage: Schafran_trimstatstable.py [-c, -v, -h] inputfile.txt outputfile.txt
+
+Options (-c and -v must be listed separately to run together):
+-h	Display this help message
+-c	Use comma delimiter instead of tabs
+-v	Verbose mode (print steps to stdout)
+```
+    2.-Run the script on your data with the outputfilename YOURNAME_trimclipstatsout.txt
+
+``` sh
+[dbarshis@turing1 fastq]$ /cm/shared/courses/dbarshis/21AdvGenomics/scripts/Schafran_trimstatstable_advbioinf_clippedtrimmed.py trimclipstats.txt DAN_trimclipstatsout.txt
+```
+
+    3. Add YOURNAME_trimclipstatsout.txt to the class file by running tail -n +2 YOURNAME_trimclipstatsout.txt >> /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/Fulltrimclipstatstable.txt
+
+``` sh
+[dbarshis@turing1 fastq]$ tail -n +2 DAN_trimclipstatsout.txt >> /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/Fulltrimclipstatstable.txt
+```
+
+2. Now we're going to map our reads back to our assembly using the bowtie2 alignment algorithm (starting to follow this pipeline https://github.com/bethsheets/SNPcalling_tutorial)
+
+3. write a sbatch script to do the following commands in sequence on your _clippedtrimmedfilterd.fastq datafiles from your lane of data
+
+``` sh
+module load bowtie2/2.2.4
+for i in *_clippedtrimmed.fastq; do bowtie2 --rg-id ${i%_clippedtrimmed.fastq} \
+--rg SM:${i%_clippedtrimmed.fastq} \
+--very-sensitive -x /cm/shared/courses/dbarshis/18AdvBioinf/classdata/Astrangia_poculata/refassembly/ast_hostsym -U $i \
+> ${i%_clippedtrimmedfilterd.fastq}.sam; done
+```
+
+``` sh
+[dbarshis@turing1 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@turing1 RI_B_14]$ cat bowtiealn.sh 
+#!/bin/bash -l
+
+#SBATCH -o djbowtie2.txt
+#SBATCH -n 1
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=newbowtie
+
+module load bowtie2/2.2.4
+for i in *_clippedtrimmed.fastq; do bowtie2 --rg-id ${i%_clippedtrimmed.fastq} \
+--rg SM:${i%_clippedtrimmed.fastq} \
+--very-sensitive -x /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly/Apoc_hostsym -U $i \
+> ${i%_clippedtrimmedfilterd.fastq}.sam --no-unal -k 5; done
+
+[dbarshis@turing1 RI_B_14]$ sbatch bowtiealn.sh 
+Submitted batch job 9271002
+```
+
+4-Submit and add everything to your logfile
