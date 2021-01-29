@@ -570,7 +570,7 @@ Options (-c and -v must be listed separately to run together):
 -c	Use comma delimiter instead of tabs
 -v	Verbose mode (print steps to stdout)
 ```
-    2.-Run the script on your data with the outputfilename YOURNAME_trimclipstatsout.txt
+2. Run the script on your data with the outputfilename YOURNAME_trimclipstatsout.txt
 
 ``` sh
 [dbarshis@turing1 fastq]$ /cm/shared/courses/dbarshis/21AdvGenomics/scripts/Schafran_trimstatstable_advbioinf_clippedtrimmed.py trimclipstats.txt DAN_trimclipstatsout.txt
