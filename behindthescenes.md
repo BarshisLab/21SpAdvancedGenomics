@@ -1,6 +1,6 @@
 # behind the scenes
 ## 29-Jan-2021
- 1. Finding and uploading Hannah's published reference assembly
+1. Finding and uploading Hannah's published reference assembly
 
 ```sh
 (base) danbarshis@BIOLLBB0 final_annotated_assembly % pwd
@@ -39,4 +39,27 @@ for i in *_clippedtrimmed.fastq; do bowtie2 --rg-id ${i%_clippedtrimmed.fastq} \
 
 [dbarshis@turing1 RI_B_14]$ sbatch bowtiealn.sh 
 Submitted batch job 9271002
+```
+
+## 1-Feb-2021
+1. Testing trinity assembly
+``` sh
+[dbarshis@coreV2-25-019 QCFastqs]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/QCFastqs
+[dbarshis@coreV2-25-019 QCFastqs]$ cat TrinityTest21Files.sh 
+#!/bin/bash -l
+
+#SBATCH -o djb21fileTrinityTest.txt
+#SBATCH -n 32
+#SBATCH -p himem
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=djb21fileTrinityTest
+
+enable_lmod
+module load container_env trinity
+
+crun Trinity --seqType fq --max_memory 768G --normalize_reads --single RI_B_01_14_clippedtrimmed.fastq,RI_B_01_18_clippedtrimmed.fastq,RI_B_01_22_clippedtrimmed.fastq,RI_B_02_14_clippedtrimmed.fastq,RI_B_02_18_clippedtrimmed.fastq,RI_B_02_22_clippedtrimmed.fastq,RI_B_03_14_clippedtrimmed.fastq,RI_B_03_18_clippedtrimmed.fastq,RI_B_03_22_clippedtrimmed.fastq,RI_B_04_14_clippedtrimmed.fastq,RI_B_04_18_clippedtrimmed.fastq,RI_B_04_22_clippedtrimmed.fastq,RI_B_05_14_clippedtrimmed.fastq,RI_B_05_18_clippedtrimmed.fastq,RI_B_05_22_clippedtrimmed.fastq,RI_B_06_14_clippedtrimmed.fastq,RI_B_06_18_clippedtrimmed.fastq,RI_B_06_22_clippedtrimmed.fastq,RI_B_07_14_clippedtrimmed.fastq,RI_B_07_18_clippedtrimmed.fastq,RI_B_07_22_clippedtrimmed.fastq --CPU 32
+[dbarshis@coreV2-25-019 QCFastqs]$ sbatch TrinityTest21Files.sh 
+Submitted batch job 9271931
 ```
