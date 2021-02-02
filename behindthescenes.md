@@ -63,3 +63,25 @@ crun Trinity --seqType fq --max_memory 768G --normalize_reads --single RI_B_01_1
 [dbarshis@coreV2-25-019 QCFastqs]$ sbatch TrinityTest21Files.sh 
 Submitted batch job 9271931
 ```
+2. Testing num mapped reads to full ref for my RI_B_14 test set
+``` sh
+[dbarshis@coreV2-25-019 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@coreV2-25-019 RI_B_14]$ cat bowtiealn_fullref.sh 
+#!/bin/bash -l
+
+#SBATCH -o djbowtie2fullref.txt
+#SBATCH -n 1
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=newbowtie
+
+module load bowtie2/2.2.4
+for i in *_clippedtrimmed.fastq; do bowtie2 --rg-id ${i%_clippedtrimmed.fastq} \
+--rg SM:${i%_clippedtrimmed.fastq} \
+--very-sensitive -x /cm/shared/courses/dbarshis/barshislab/Hannah/2018-Feb_Berkeley/sandbox/Barshis/trinity_out_dir/HEA_AstrangiaAssembly -U $i \
+> ${i%_clippedtrimmed.fastq}_2fullref.sam --no-unal -k 5; done
+
+[dbarshis@coreV2-25-019 RI_B_14]$ sbatch bowtiealn_fullref.sh 
+Submitted batch job 9271936
+```
