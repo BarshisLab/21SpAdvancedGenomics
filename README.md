@@ -592,7 +592,7 @@ module load bowtie2/2.2.4
 for i in *_clippedtrimmed.fastq; do bowtie2 --rg-id ${i%_clippedtrimmed.fastq} \
 --rg SM:${i%_clippedtrimmed.fastq} \
 --very-sensitive -x /cm/shared/courses/dbarshis/18AdvBioinf/classdata/Astrangia_poculata/refassembly/ast_hostsym -U $i \
-> ${i%_clippedtrimmedfilterd.fastq}.sam; done
+> ${i%_clippedtrimmed.fastq}.sam; done
 ```
 
 ``` sh
@@ -611,10 +611,312 @@ module load bowtie2/2.2.4
 for i in *_clippedtrimmed.fastq; do bowtie2 --rg-id ${i%_clippedtrimmed.fastq} \
 --rg SM:${i%_clippedtrimmed.fastq} \
 --very-sensitive -x /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly/Apoc_hostsym -U $i \
-> ${i%_clippedtrimmedfilterd.fastq}.sam --no-unal -k 5; done
+> ${i%_clippedtrimmed.fastq}.sam --no-unal -k 5; done
 
 [dbarshis@turing1 RI_B_14]$ sbatch bowtiealn.sh 
 Submitted batch job 9271002
 ```
 
-4-Submit and add everything to your logfile
+4. Submit and add everything to your logfile
+
+## Homework day05 3-Feb-2021
+
+
+## Homework day06 5-Feb-2021
+1. start an interactive session via salloc and run the /cm/shared/apps/trinity/2.0.6/util/TrinityStats.pl script on your Trinity.fasta output from your assembly
+``` sh
+[dbarshis@turing1 dan]$ salloc
+salloc: Pending job allocation 9272731
+salloc: job 9272731 queued and waiting for resources
+salloc: job 9272731 has been allocated resources
+salloc: Granted job allocation 9272731
+[dbarshis@coreV3-23-036 21sampleassembly_trinity_out_dir]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/QCFastqs/21sampleassembly_trinity_out_dir
+[dbarshis@coreV3-23-036 21sampleassembly_trinity_out_dir]$ /cm/shared/apps/trinity/2.0.6/util/TrinityStats.pl Trinity.fasta
+
+
+################################
+## Counts of transcripts, etc.
+################################
+Total trinity 'genes':	20980
+Total trinity transcripts:	21992
+Percent GC: 46.21
+
+########################################
+Stats based on ALL transcript contigs:
+########################################
+
+	Contig N10: 1178
+	Contig N20: 694
+	Contig N30: 514
+	Contig N40: 414
+	Contig N50: 347
+
+	Median contig length: 273
+	Average contig: 356.95
+	Total assembled bases: 7850006
+
+
+#####################################################
+## Stats based on ONLY LONGEST ISOFORM per 'GENE':
+#####################################################
+
+	Contig N10: 1027
+	Contig N20: 643
+	Contig N30: 486
+	Contig N40: 397
+	Contig N50: 336
+
+	Median contig length: 271
+	Average contig: 347.72
+	Total assembled bases: 7295061
+```
+2. compare this with the output from avg_cov_len_fasta_advbioinf.py on our class reference assembly (/cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly/15079_Apoc_hostsym.fasta) and add both to your logfile
+
+``` sh
+[dbarshis@coreV3-23-036 RI_B_14]$ /cm/shared/courses/dbarshis/21AdvGenomics/scripts/avg_cov_len_fasta_advbioinf.py /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly/15079_Apoc_hostsym.fasta
+The total number of sequences is 15079
+The average sequence length is 876
+The total number of bases is 13210470
+The minimum sequence length is 500
+The maximum sequence length is 10795
+The N50 is 881
+Median Length = 578
+contigs < 150bp = 0
+contigs >= 500bp = 15079
+contigs >= 1000bp = 3660
+contigs >= 2000bp = 536
+```
+3. less or head your bowtie2 job output file to look at your alignment statistics and calculate the following from the information:
+  * a-the mean percent "overall alignment rate"
+
+``` sh
+[dbarshis@coreV3-23-036 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "overall alignment rate" djbowtie2.txt 
+3.22% overall alignment rate
+1.91% overall alignment rate
+1.61% overall alignment rate
+2.48% overall alignment rate
+2.32% overall alignment rate
+4.40% overall alignment rate
+1.53% overall alignment rate
+
+### compared to full ref alignment
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "overall alignment rate" djbowtie2fullref.txt 
+90.54% overall alignment rate
+87.77% overall alignment rate
+94.95% overall alignment rate
+91.75% overall alignment rate
+94.39% overall alignment rate
+96.40% overall alignment rate
+96.08% overall alignment rate
+
+### fancy with pipes to cut
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "overall alignment rate" djbowtie2fullref.txt | cut -d " " -f 1 | cut -d "%" -f 1
+90.54
+87.77
+94.95
+91.75
+94.39
+96.40
+96.08
+```
+  * b-the mean percent reads "aligned exactly 1 time"
+``` sh
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "aligned exactly 1 time" djbowtie2.txt 
+    117712 (1.63%) aligned exactly 1 time
+    50875 (0.86%) aligned exactly 1 time
+    199136 (1.11%) aligned exactly 1 time
+    370715 (1.41%) aligned exactly 1 time
+    677289 (1.66%) aligned exactly 1 time
+    38261 (0.99%) aligned exactly 1 time
+    279609 (1.10%) aligned exactly 1 time
+
+### compared to full ref alignment
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "aligned exactly 1 time" djbowtie2fullref.txt 
+    3896116 (53.92%) aligned exactly 1 time
+    2745106 (46.21%) aligned exactly 1 time
+    9095833 (50.59%) aligned exactly 1 time
+    14477971 (55.13%) aligned exactly 1 time
+    20493151 (50.18%) aligned exactly 1 time
+    1893541 (48.83%) aligned exactly 1 time
+    13498376 (53.00%) aligned exactly 1 time
+
+### fancy with pipes to cut
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "aligned exactly 1 time" djbowtie2fullref.txt | cut -d "(" -f 2 | cut -d "%" -f 1
+53.92
+46.21
+50.59
+55.13
+50.18
+48.83
+53.00
+
+```
+  * c-the mean number of reads "aligned exactly 1 time"
+``` sh
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "aligned exactly 1 time" djbowtie2.txt 
+    117712 (1.63%) aligned exactly 1 time
+    50875 (0.86%) aligned exactly 1 time
+    199136 (1.11%) aligned exactly 1 time
+    370715 (1.41%) aligned exactly 1 time
+    677289 (1.66%) aligned exactly 1 time
+    38261 (0.99%) aligned exactly 1 time
+    279609 (1.10%) aligned exactly 1 time
+    
+### compared to full ref alignment
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "aligned exactly 1 time" djbowtie2fullref.txt 
+    3896116 (53.92%) aligned exactly 1 time
+    2745106 (46.21%) aligned exactly 1 time
+    9095833 (50.59%) aligned exactly 1 time
+    14477971 (55.13%) aligned exactly 1 time
+    20493151 (50.18%) aligned exactly 1 time
+    1893541 (48.83%) aligned exactly 1 time
+    13498376 (53.00%) aligned exactly 1 time
+
+### fancy with pipes to cut
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "aligned exactly 1 time" djbowtie2fullref.txt | cut -d " " -f 5
+3896116
+2745106
+9095833
+14477971
+20493151
+1893541
+13498376
+```
+  * d-the mean percent reads "aligned >1 times"
+``` sh
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "aligned >1 times" djbowtie2.txt 
+    114820 (1.59%) aligned >1 times
+    62532 (1.05%) aligned >1 times
+    90147 (0.50%) aligned >1 times
+    281407 (1.07%) aligned >1 times
+    272001 (0.67%) aligned >1 times
+    132422 (3.42%) aligned >1 times
+    109989 (0.43%) aligned >1 times
+    
+### compared to full ref alignment
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "aligned >1 times" djbowtie2fullref.txt 
+    2646216 (36.62%) aligned >1 times
+    2469596 (41.57%) aligned >1 times
+    7976744 (44.36%) aligned >1 times
+    9619647 (36.63%) aligned >1 times
+    18053294 (44.21%) aligned >1 times
+    1844254 (47.56%) aligned >1 times
+    10974446 (43.09%) aligned >1 times
+
+### fancy with pipes to cut
+[dbarshis@coreV3-23-036 RI_B_14]$ grep "aligned >1 times" djbowtie2fullref.txt | cut -d "(" -f 2 | cut -d "%" -f 1
+36.62
+41.57
+44.36
+36.63
+44.21
+47.56
+43.09
+
+```	
+  * **hint** use grep and paste into excel or get fancy with **cut** and paste into excel
+
+4. add your statistics as single rows to the shared table /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/alignmentstatstable.txt as tab-delimited text in the following order:
+LaneX_yourinitials	b-the mean percent "overall alignment rate"	c-the mean percent reads "aligned exactly 1 time"	d-the mean number of reads "aligned exactly 1 time"	e-the mean percent reads "aligned >1 times"
+
+``` sh
+[dbarshis@coreV3-23-036 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@coreV3-23-036 RI_B_14]$ nano alignstats.txt
+[dbarshis@coreV3-23-036 RI_B_14]$ cat alignstats.txt >> /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/alignmentstatstable.txt
+```
+5. Data cleanup and archiving:
+  * a-mv your Trinity.fasta file from your trinity_out_dir to a folder called testassembly in your data directory
+
+``` sh
+[dbarshis@coreV3-23-036 QCFastqs]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/QCFastqs
+[dbarshis@coreV3-23-036 QCFastqs]$ mkdir /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/testassembly
+[dbarshis@coreV3-23-036 QCFastqs]$ mv 21sampleassembly_trinity_out_dir/Trinity.fasta /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/testassembly
+```
+  * b-set up a sbatch script to:
+    * rm -r YOURtrinity_out_dir
+    * rm -r YOURoriginalfastqs
+    * rm -r YOURfilteringstats # as long as you've already appended your filteringstats output to the class table as part of homework_day04.txt
+
+``` sh
+#!/bin/bash -l
+
+#SBATCH -o OUTFILENAME.txt
+#SBATCH -n NUMTHREADS(1 if not multi-threaded)
+#SBATCH --mail-user=YOUREMAIL@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=JOBNAME
+
+rm -r /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/QCFastqs/21sampleassembly_trinity_out_dir
+rm -r /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/originalfastqs
+rm -r /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/filteringstats
+```
+
+6. submit a blast against sprot from your testassembly folder using the following command
+
+``` sh
+#!/bin/bash -l
+
+#SBATCH -o OUTFILENAME.txt
+#SBATCH -n 6         
+#SBATCH --mail-user=EMAIL
+#SBATCH --mail-type=END
+#SBATCH --job-name=JOBNAME
+
+enable_lmod
+module load container_env blast
+blastx -query Trinity.fasta -db /cm/shared/apps/blast/databases/uniprot_sprot_Sep2018 -out blastx.outfmt6 \
+        -evalue 1e-20 -num_threads 6 -max_target_seqs 1 -outfmt 6
+
+### my workflow
+[dbarshis@coreV3-23-036 testassembly]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/testassembly
+[dbarshis@coreV3-23-036 testassembly]$ cat blast2sprot.sh 
+#!/bin/bash -l
+
+#SBATCH -o blastx2sprot.txt
+#SBATCH -n 6         
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=djbblastx2sprot
+
+enable_lmod
+module load container_env blast
+blastx -query Trinity.fasta -db /cm/shared/apps/blast/databases/uniprot_sprot_Sep2018 -out djbblastx.outfmt6 \
+        -evalue 1e-20 -num_threads 6 -max_target_seqs 1 -outfmt 6
+[dbarshis@coreV3-23-036 testassembly]$ sbatch blast2sprot.sh 
+Submitted batch job 9272733
+```
+
+\###Exploring our SAM files, check out http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#sam-output for bowtie2 specific output and http://bio-bwa.sourceforge.net/bwa.shtml#4 for general SAM output
+7. head one of your .sam files to look at the header
+8. grep -v '@' your.sam | head to look at the sequence read lines, why does this work to exclude the header lines?
+9. in an interactive session run /cm/shared/courses/dbarshis/21AdvGenomics/scripts/get_explain_sam_flags_advbioinf.py on 2-3 of your .sam files using * to select 2-3 at the same time.
+10. for expression counting, we need to run bowtie2 a little different, so if you have time, set up and run the following script on your filtered fastq files to finish before Wednesday, this will also perform the read sorting step required for SNP calling:
+
+``` sh
+#!/bin/bash -l
+
+#SBATCH -o OUTFILENAME.txt
+#SBATCH -n 1         
+#SBATCH --mail-user=EMAIL
+#SBATCH --mail-type=END
+#SBATCH --job-name=JOBNAME
+
+module load samtools/1.1
+module load bowtie2/2.2.4
+for i in *_clippedtrimmed.fastq; do bowtie2 --rg-id ${i%_clippedtrimmedfilterd.fastq} \
+--rg SM:${i%_clippedtrimmed.fastq} \
+--very-sensitive -x /cm/shared/courses/dbarshis/18AdvBioinf/classdata/Astrangia_poculata/refassembly/ast_hostsym -U $i \
+> ${i%_clippedtrimmed.fastq}_v2.sam --no-unal -k 5; done
+
+for i in *.sam; do `samtools view -bS $i > ${i%.sam}_UNSORTED.bam`; done
+
+for i in *UNSORTED.bam; do samtools sort $i > ${i%_UNSORTED.bam}.bam
+samtools index ${i%_UNSORTED.bam}.bam
+done
+```
