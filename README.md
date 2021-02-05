@@ -893,9 +893,16 @@ Submitted batch job 9272733
 ```
 
 \###Exploring our SAM files, check out http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#sam-output for bowtie2 specific output and http://bio-bwa.sourceforge.net/bwa.shtml#4 for general SAM output
+
 7. head one of your .sam files to look at the header
+```
+```
 8. grep -v '@' your.sam | head to look at the sequence read lines, why does this work to exclude the header lines?
+```
+```
 9. in an interactive session run /cm/shared/courses/dbarshis/21AdvGenomics/scripts/get_explain_sam_flags_advbioinf.py on 2-3 of your .sam files using * to select 2-3 at the same time.
+```
+```
 10. for expression counting, we need to run bowtie2 a little different, so if you have time, set up and run the following script on your filtered fastq files to finish before Wednesday, this will also perform the read sorting step required for SNP calling:
 
 ``` sh
