@@ -895,7 +895,6 @@ Submitted batch job 9272733
 \###Exploring our SAM files, check out http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#sam-output for bowtie2 specific output and http://bio-bwa.sourceforge.net/bwa.shtml#4 for general SAM output
 
 7. head one of your .sam files to look at the header
-
 ``` sh
 [dbarshis@coreV3-23-036 RI_B_14]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
@@ -910,15 +909,51 @@ Submitted batch job 9272733
 @SQ	SN:TR101|c0_g1_i1_coral	LN:673
 @SQ	SN:TR104|c0_g1_i1_coral	LN:607
 @SQ	SN:TR105|c0_g1_i1_coral	LN:587
+```
 
-```
 8. grep -v '@' your.sam | head to look at the sequence read lines, why does this work to exclude the header lines?
+``` sh
+[dbarshis@coreV3-23-036 RI_B_14]$ grep -v "@" RI_B_01_14_clippedtrimmed.fastq.sam | head
+K00188:59:HMTFHBBXX:2:1101:25814:1701	16	TR14006|c0_g2_i1_coral	317	255	51M	*	0	0	CAGCTGGAAATTCACGTGGTGGCAGTGGAAGTGGCTTTTGACAGAAATCTG	AJJJJJJJJJJJJFJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFAA	AS:i:0	XN:i:0	XM:i:0	XO:i:0	XG:i:0	NM:i:0	MD:Z:51	YT:Z:UU	RG:Z:RI_B_01_14
+K00188:59:HMTFHBBXX:2:1101:19827:1912	0	TR6438|c0_g1_i3_coral	30	1	51M	*	0	0	TGAACATAGGCCGCTAACATCAAGGCATAAAAGTTTTGTGGCCGTTTTCGA	AAFFFJJJJJJJJJJJJJJJFJJJFJJJJJJJJJJJJJJJJJJJJFJJJJJ	AS:i:0	XS:i:0	XN:i:0	XM:i:0	XO:i:0	XG:i:0	NM:i:0	MD:Z:51	YT:Z:UU	RG:Z:RI_B_01_14
 ```
-```
+
 9. in an interactive session run /cm/shared/courses/dbarshis/21AdvGenomics/scripts/get_explain_sam_flags_advbioinf.py on 2-3 of your .sam files using * to select 2-3 at the same time.
 ```
+[dbarshis@coreV3-23-036 RI_B_14]$ /cm/shared/courses/dbarshis/21AdvGenomics/scripts/get_explain_sam_flags_advbioinf.py RI_B_01_14_clippedtrimmed.fastq.sam RI_B_02_14_clippedtrimmed.fastq.sam RI_B_03_14_clippedtrimmed.fastq.sam
+RI_B_01_14_clippedtrimmed.fastq.sam
+['0', '272', '256', '16']
+0 :
+272 :
+	read reverse strand
+	not primary alignment
+256 :
+	not primary alignment
+16 :
+	read reverse strand
+RI_B_02_14_clippedtrimmed.fastq.sam
+['0', '272', '256', '16']
+0 :
+272 :
+	read reverse strand
+	not primary alignment
+256 :
+	not primary alignment
+16 :
+	read reverse strand
+RI_B_03_14_clippedtrimmed.fastq.sam
+['0', '272', '256', '16']
+0 :
+272 :
+	read reverse strand
+	not primary alignment
+256 :
+	not primary alignment
+16 :
+	read reverse strand
 ```
-10. for expression counting, we need to run bowtie2 a little different, so if you have time, set up and run the following script on your filtered fastq files to finish before Wednesday, this will also perform the read sorting step required for SNP calling:
+
+10. we need to run the read sorting step required for SNP calling, so if you have time, set up and run the following script on your .sam files to finish before Wednesday:
 
 ``` sh
 #!/bin/bash -l
@@ -929,16 +964,33 @@ Submitted batch job 9272733
 #SBATCH --mail-type=END
 #SBATCH --job-name=JOBNAME
 
-module load samtools/1.1
-module load bowtie2/2.2.4
-for i in *_clippedtrimmed.fastq; do bowtie2 --rg-id ${i%_clippedtrimmedfilterd.fastq} \
---rg SM:${i%_clippedtrimmed.fastq} \
---very-sensitive -x /cm/shared/courses/dbarshis/18AdvBioinf/classdata/Astrangia_poculata/refassembly/ast_hostsym -U $i \
-> ${i%_clippedtrimmed.fastq}_v2.sam --no-unal -k 5; done
-
+enable_lmod
+module load samtools/1
 for i in *.sam; do `samtools view -bS $i > ${i%.sam}_UNSORTED.bam`; done
 
 for i in *UNSORTED.bam; do samtools sort $i > ${i%_UNSORTED.bam}.bam
 samtools index ${i%_UNSORTED.bam}.bam
 done
+
+### my workflow
+[dbarshis@coreV3-23-036 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@coreV3-23-036 RI_B_14]$ cat bamandsort.sh 
+#!/bin/bash -l
+
+#SBATCH -o djbBamandSort.txt
+#SBATCH -n 1         
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=djbBAMandSort
+
+enable_lmod
+module load samtools/1
+for i in *.sam; do `samtools view -bS $i > ${i%.sam}_UNSORTED.bam`; done
+
+for i in *UNSORTED.bam; do samtools sort $i > ${i%_UNSORTED.bam}.bam
+samtools index ${i%_UNSORTED.bam}.bam
+done
+[dbarshis@coreV3-23-036 RI_B_14]$ sbatch bamandsort.sh 
+Submitted batch job 9272734
 ```
