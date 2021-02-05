@@ -895,7 +895,22 @@ Submitted batch job 9272733
 \###Exploring our SAM files, check out http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#sam-output for bowtie2 specific output and http://bio-bwa.sourceforge.net/bwa.shtml#4 for general SAM output
 
 7. head one of your .sam files to look at the header
-```
+
+``` sh
+[dbarshis@coreV3-23-036 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@coreV3-23-036 RI_B_14]$ head RI_B_01_14_clippedtrimmed.fastq.sam 
+@HD	VN:1.0	SO:unsorted
+@SQ	SN:TR78|c0_g1_i1_coral	LN:1109
+@SQ	SN:TR78|c0_g2_i1_coral	LN:1109
+@SQ	SN:TR79|c0_g1_i1_coral	LN:610
+@SQ	SN:TR79|c0_g2_i1_coral	LN:1549
+@SQ	SN:TR87|c0_g1_i1_coral	LN:732
+@SQ	SN:TR93|c0_g1_i1_coral	LN:550
+@SQ	SN:TR101|c0_g1_i1_coral	LN:673
+@SQ	SN:TR104|c0_g1_i1_coral	LN:607
+@SQ	SN:TR105|c0_g1_i1_coral	LN:587
+
 ```
 8. grep -v '@' your.sam | head to look at the sequence read lines, why does this work to exclude the header lines?
 ```
