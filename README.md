@@ -1061,10 +1061,9 @@ Submitted batch job 9276380
 
 enable_lmod
 module load dDocent
-for i in *.bam; do `freebayes --genotype-qualities -f /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly/15079_Apoc_hostsym.fasta $i > ${i%.fastq.bam}_unfiltered.vcf`; done
+freebayes --genotype-qualities -f /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly/15079_Apoc_hostsym.fasta *.bam > YOURNAMEmergedfastqs.vcf
 
 #### my workflow
-``` sh
 [dbarshis@turing1 RI_B_14]$ pwd
 /cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
 [dbarshis@turing1 RI_B_14]$ cat freebayessubref.sh 
