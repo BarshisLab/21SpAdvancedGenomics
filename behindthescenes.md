@@ -85,3 +85,128 @@ for i in *_clippedtrimmed.fastq; do bowtie2 --rg-id ${i%_clippedtrimmed.fastq} \
 [dbarshis@coreV2-25-019 RI_B_14]$ sbatch bowtiealn_fullref.sh 
 Submitted batch job 9271936
 ```
+## 8-Feb-2021 Looking at sprot output
+  * running sprot blast on 15079_Apoc_hostsym.fasta
+``` sh
+[dbarshis@coreV2-22-020 refassembly]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly
+[dbarshis@coreV2-22-020 refassembly]$ cat blast2sprot.sh 
+#!/bin/bash -l
+
+#SBATCH -o blastx2sprot.txt
+#SBATCH -n 6         
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=djbblastx2sprot
+
+enable_lmod
+module load container_env blast
+blastx -query 15079_Apoc_hostsym.fasta -db /cm/shared/apps/blast/databases/uniprot_sprot_Sep2018 -out djbblastx.outfmt6 \
+        -evalue 1e-20 -num_threads 6 -max_target_seqs 1 -outfmt 6
+
+[dbarshis@coreV2-22-020 refassembly]$ sbatch blast2sprot.sh 
+Submitted batch job 9275901
+```
+
+## 9-Feb-2021
+  * rm unsorted bam
+``` sh
+[dbarshis@turing1 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@turing1 RI_B_14]$ cat rmunsortbam.sh 
+#!/bin/bash -l
+
+#SBATCH -o rmunsortbam.txt
+#SBATCH -n 1         
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=rmunsortbam
+
+rm *UNSORTED.bam
+
+[dbarshis@turing1 RI_B_14]$ sbatch rmunsortbam.sh 
+Submitted batch job 9276380
+```
+  * freebaysin
+``` sh
+[dbarshis@turing1 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@turing1 RI_B_14]$ cat freebayessubref.sh 
+#!/bin/bash -l
+
+#SBATCH -o freebayessubref.txt
+#SBATCH -n 1         
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=freebayessubref
+
+enable_lmod
+module load dDocent
+for i in *clippedtrimmed.fastq.bam; do `freebayes --genotype-qualities -f /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly/15079_Apoc_hostsym.fasta $i > ${i%.fastq.bam}_unfiltered.vcf`; done
+
+[dbarshis@turing1 RI_B_14]$ sbatch freebayessubref.sh 
+Submitted batch job 9276382
+```
+  * freebaysin full ref
+``` sh
+[dbarshis@turing1 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@turing1 RI_B_14]$ cat fre
+freebayesfullref.sh* freebayessubref.sh*  freebayessubref.txt* 
+[dbarshis@turing1 RI_B_14]$ cat freebayesfullref.sh 
+#!/bin/bash -l
+
+#SBATCH -o freebayesfullref.txt
+#SBATCH -n 1         
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=freebayesfullref
+
+enable_lmod
+module load dDocent
+for i in *2fullref.bam; do `freebayes --genotype-qualities -f /cm/shared/courses/dbarshis/barshislab/Hannah/2018-Feb_Berkeley/sandbox/Barshis/trinity_out_dir/HEA_AstrangiaAssembly_Trinity.fasta $i > ${i%.bam}_unfiltered.vcf`; done
+
+[dbarshis@turing1 RI_B_14]$ sbatch freebayesfullref.sh 
+Submitted batch job 9276383
+```
+
+## 10-Feb-2021
+  * re subref-freebayesin
+``` sh
+[dbarshis@turing1 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@turing1 RI_B_14]$ cat freebayessubref.sh 
+#!/bin/bash -l
+
+#SBATCH -o freebayessubref.txt
+#SBATCH -n 1         
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=freebayessubref
+
+enable_lmod
+module load dDocent
+freebayes --genotype-qualities -f /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly/15079_Apoc_hostsym.fasta *.fastq.bam > YOURNAMEmergedfastqs.vcf
+[dbarshis@turing1 RI_B_14]$ sbatch freebayessubref.sh 
+Submitted batch job 9276450
+```
+  * re fullref-freebayesin
+``` sh
+[dbarshis@turing1 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@turing1 RI_B_14]$ cat freebayesfullref.sh 
+#!/bin/bash -l
+
+#SBATCH -o freebayesfullref.txt
+#SBATCH -n 1         
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=freebayesfullref
+
+enable_lmod
+module load dDocent
+freebayes --genotype-qualities -f /cm/shared/courses/dbarshis/barshislab/Hannah/2018-Feb_Berkeley/sandbox/Barshis/trinity_out_dir/HEA_AstrangiaAssembly_Trinity.fasta *2fullref.bam > DJBFullref_mergedfastqs.vcf
+
+[dbarshis@turing1 RI_B_14]$ sbatch freebayesfullref.sh 
+Submitted batch job 9276451
+```

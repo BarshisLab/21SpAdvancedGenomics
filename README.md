@@ -994,3 +994,91 @@ done
 [dbarshis@coreV3-23-036 RI_B_14]$ sbatch bamandsort.sh 
 Submitted batch job 9272734
 ```
+
+## Homework day07 10-Feb-2021
+
+1. Run the following command on your sprot output file to process into the contig length/match format that trinity examines
+
+``` sh 
+#!/bin/bash -l
+
+#SBATCH -o OUTFILE.TXT
+#SBATCH -n 1
+#SBATCH --mail-user=YOUREMAIL.odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=JOBNAME
+
+/cm/shared/apps/trinity/2.0.6/util/analyze_blastPlus_topHit_coverage.pl blastx.outfmt6 Trinity.fasta /cm/shared/apps/blast/databases/uniprot_sprot_Sep2018.fasta
+
+#### My workflow
+[dbarshis@turing1 refassembly]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly
+[dbarshis@turing1 refassembly]$ cat blastparse.sh 
+#!/bin/bash -l
+
+#SBATCH -o OUTFILE.TXT
+#SBATCH -n 1
+#SBATCH --mail-user=YOUREMAIL.odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=JOBNAME
+
+/cm/shared/apps/trinity/2.0.6/util/analyze_blastPlus_topHit_coverage.pl djbblastx.outfmt6 15079_Apoc_hostsym.fasta /cm/shared/apps/blast/databases/uniprot_sprot_Sep2018.fasta
+
+[dbarshis@turing1 refassembly]$ sbatch blastparse.sh 
+Submitted batch job 9276446
+```
+
+2. Rm UNSORTED.bam's from your QCFastqs directory (or wherever your .bams and .sams are)
+
+``` sh
+[dbarshis@turing1 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@turing1 RI_B_14]$ cat rmunsortbam.sh 
+#!/bin/bash -l
+
+#SBATCH -o rmunsortbam.txt
+#SBATCH -n 1         
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=rmunsortbam
+
+rm *UNSORTED.bam
+
+[dbarshis@turing1 RI_B_14]$ sbatch rmunsortbam.sh 
+Submitted batch job 9276380
+```
+
+3. Run the following to start genotyping your SNPs for filtering next week
+
+``` sh
+#!/bin/bash -l
+
+#SBATCH -o OUTFILENAME.txt
+#SBATCH -n 1         
+#SBATCH --mail-user=EMAIL
+#SBATCH --mail-type=END
+#SBATCH --job-name=JOBNAME
+
+enable_lmod
+module load dDocent
+for i in *.bam; do `freebayes --genotype-qualities -f /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly/15079_Apoc_hostsym.fasta $i > ${i%.fastq.bam}_unfiltered.vcf`; done
+
+#### my workflow
+``` sh
+[dbarshis@turing1 RI_B_14]$ pwd
+/cm/shared/courses/dbarshis/21AdvGenomics/sandboxes/dan/data/fastq/RI_B_14
+[dbarshis@turing1 RI_B_14]$ cat freebayessubref.sh 
+#!/bin/bash -l
+
+#SBATCH -o freebayessubref.txt
+#SBATCH -n 1         
+#SBATCH --mail-user=dbarshis@odu.edu
+#SBATCH --mail-type=END
+#SBATCH --job-name=freebayessubref
+
+enable_lmod
+module load dDocent
+freebayes --genotype-qualities -f /cm/shared/courses/dbarshis/21AdvGenomics/classdata/Astrangia_poculata/refassembly/15079_Apoc_hostsym.fasta *.fastq.bam > YOURNAMEmergedfastqs.vcf
+[dbarshis@turing1 RI_B_14]$ sbatch freebayessubref.sh 
+Submitted batch job 9276450
+```
