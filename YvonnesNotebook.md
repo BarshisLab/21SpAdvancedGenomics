@@ -1,4 +1,4 @@
-##27-April-2016 - Filter contigs over 500
+## 27-April-2016 - Filter contigs over 500
   - Created a new folder calles "assembly" under "Red Sea" and copied the assembly file "Trinity.fasta" from the filtered sequences 
   - Renamed the assembly file --> "Filtered_Trinity.fasta"
 
@@ -51,7 +51,7 @@ cleansym_advbioinf.fasta        dirtycoral.nsq
 ```
 
 
-##09-May-2016 - New blastdb for corals and symbionts (clean / dirty)
+## 09-May-2016 - New blastdb for corals and symbionts (clean / dirty)
 
 New sequences (fata files) for blastdb downloaded and placed in the new directory.
 Files were downloaded (usually as .zip folders), then copied to the following directory using WinSCP, then unzipped, then all non-used files deleted (everything except the .fasta file)
@@ -89,7 +89,7 @@ Files were downloaded (usually as .zip folders), then copied to the following di
    - Clade C1 - Acropora tenuis (MMETSP1369), Gates 2011, unpublished (http://data.imicrobe.us/sample/view/2193 - download-assembly) --> DS_CladeC1b_Gates2011.fasta 
 
 
-##10-May-2016 - New blastdb for corals and symbionts (clean / dirty)
+## 10-May-2016 - New blastdb for corals and symbionts (clean / dirty)
  
 **Chris Voolstra list - additional sequences of corals**
    - Edwardsiella lineata, Stefanik et al. 2014, transcript produced 2009 (http://cnidarians.bu.edu/EdwardBase/cgi-bin/stock.cgi) --> DC_EdwardLinea_Stefanik2014.fasta
@@ -146,7 +146,7 @@ CS_MonoBrev_King2008.fasta         DS_CladeD1_Gates2011.fasta
 CS_StrainCCMP2430a_iMicrobe.fasta  DS_CladeD_Ladner2012.fasta
 ```
 
-##11-May-2016 - Merge individual blastdb for corals and symbionts, dirty and clean
+## 11-May-2016 - Merge individual blastdb for corals and symbionts, dirty and clean
 Files have been merged, first all CC for the clean coral db, then CC and DC for the dirty coral db and the same for the symbionts. A new directory was created and the merged fasta files were moved into it.
 ```
 [ysawall@d430-041 New_sequences]$ cat CC_* > CC_all_db.fasta
@@ -245,7 +245,7 @@ CS_all_nucldb.nhr  **DC_all_nucldb.01.nhr**  DS_all_nucldb.nsq
 CS_all_nucldb.nin  **DC_all_nucldb.01.nin**
 ```
 
-##12-May-2016 - Split assembly and do the blast
+## 12-May-2016 - Split assembly and do the blast
 First, I tried a few more things to figure out what the probem was for havinghte double amount fo output files for DC after makeblastdb. Apparently the file is too big for one set of output files therefore two files are created. The nal file connects the two divided files again.
 Then I split the assembly into 20000 bp pieces, after copying and adapting the dbparams.txt and copying the splitfasta.. script into my assembly directory.
 ```
@@ -387,7 +387,7 @@ job-ID  prior   name       user         state submit/start at     queue         
  129138 500.00018 Filtered_T ysawall      r     05/12/2016 12:43:37 main@c8-029.cm.cluster             2   
 ```
 
-##16-May-2016 - Parse blast outputs & Reparse parse outputs
+## 16-May-2016 - Parse blast outputs & Reparse parse outputs
 
 Check blast output (example given below for DS)
 
@@ -600,7 +600,7 @@ DS_parse_output.txt     0.95    100     Number of Good Hits:    89909
 DS_parse_output.txt     0.95    100     Number of unique matches:       65664
 ```
 
-##17-May-2016 - generate "good coral" and "good symbiont" reference sequences
+## 17-May-2016 - generate "good coral" and "good symbiont" reference sequences
 **Dan's advice:** In terms of what cutoffs to use to generate a "good coral" and a "good symbiont" reference sequence is really a matter of personal preference. There are 99696 contigs in the Clean Sym blast at a 70%/100bp cutoff and 149531 in the DC blast at an 85%/100bp cutoff. I'd start there and see how many are left after the symbiont sequences are filtered out. Then we can adjust the cutoffs if we need to include more or less sequences. We're really looking for <70K sequences in the end, but it depends on the sequencing, species, etc.
    * Used WinSCP to copy the files DC_parse_output_85per100bpmatch.txt and CS_parse_output_70per100bpmatch.txt on computer (D:/GEOMAR/Jeddah Daten/Transcriptomics/assembly_blast/) --> took 3 hours for the 2 files!!
 **In R** we compared the two seqeunces with each other
@@ -630,7 +630,7 @@ TR309|c0_g1_i1 len=501 path=[1031:0-88 1032:89-112 1037:113-326 1035:327-350 103
 TR326|c0_g1_i1 len=780 path=[1540:0-262 1541:263-286 1542:287-779] [-1, 1540, 1541, 1542, -2]
 ```
 
-##18-May-2016 - generate "good coral" and "good symbiont" reference sequences
+## 18-May-2016 - generate "good coral" and "good symbiont" reference sequences
 The GoodCoralContig_1112227 file has too many contigs. Try different scenarious for DC-CS and DS-CC..
 Additional parse text files with differnt % cutoffs where copied to the computer and read into R. Than different combinations for the comparison of contig names were used...
 ```
@@ -639,7 +639,7 @@ Additional parse text files with differnt % cutoffs where copied to the computer
 > dirtysym85<-read.delim("DS_parse_output_85per100bpmatch.txt")
 > dirtysym90<-read.delim("DS_parse_output_90per100bpmatch.txt")
 > cleancoral70<-read.delim("CC_parse_output_70per100bpmatch.txt")
-###data table "dirtycoral" is "dirtycoral85" and "cleansym" is "cleansym70"
+## #data table "dirtycoral" is "dirtycoral85" and "cleansym" is "cleansym70"
 > sum(!(dirtycoral90$Query.Name%in%cleansym$Query.Name))
 [1] 97806
 > sum(!(dirtycoral90$Query.Name%in%cleansym60$Query.Name))
@@ -648,7 +648,7 @@ Additional parse text files with differnt % cutoffs where copied to the computer
 [1] 85356
 > sum(!(dirtysym90$Query.Name%in%cleancoral70$Query.Name))
 [1] 84403
-### and more combinations....
+## # and more combinations....
 > dirtycoral95<-read.delim("DC_parse_output_95per100bpmatch.txt")
 > cleansym50<-read.delim("CS_parse_output_50per100bpmatch.txt")
 > dirtysym95<-read.delim("DS_parse_output_95per100bpmatch.txt")
@@ -658,14 +658,14 @@ Additional parse text files with differnt % cutoffs where copied to the computer
 [1] 79276
 > sum(!(dirtycoral95$Query.Name%in%cleansym50$Query.Name))
 [1] 79276
-> ### cleansym50 and cleansym60 have the same number of contigs (stupid me...)
+> ## # cleansym50 and cleansym60 have the same number of contigs (stupid me...)
 > sum(!(dirtysym90$Query.Name%in%cleancoral60$Query.Name))
 [1] 82825
 > sum(!(dirtysym95$Query.Name%in%cleancoral60$Query.Name))
 [1] 79978
 > sum(!(dirtysym95$Query.Name%in%cleancoral50$Query.Name))
 [1] 79978
-> ### cleancoral50 and cleancoral60 have the same number of contigs (stupid me...)
+> ## # cleancoral50 and cleancoral60 have the same number of contigs (stupid me...)
 ```
 Take the most conservative options:
    * for GoodCoralContig use dirtycoral95 vs cleansym60
@@ -741,7 +741,7 @@ Databasename    Outfmt  NumThreads
 /cm/shared/courses/apps/blast/databases/        uniprot_TrEMBL  7       2
 ```
 
-##19-May-2016 - combine "good coral" and "good symbiont" reference sequences, split & blast
+## 19-May-2016 - combine "good coral" and "good symbiont" reference sequences, split & blast
 Combine the two Assembly files
 ```
 [ysawall@turing1 fastas]$ pwd
@@ -816,7 +816,7 @@ job-ID  prior   name       user         state submit/start at     queue         
 ...
 ```
 
-##29/30-05-2016 - Total annotation and mapping 
+## 29/30-05-2016 - Total annotation and mapping 
 
 Blasting results and combining result files for total annotation
 ```
@@ -826,7 +826,7 @@ Blasting results and combining result files for total annotation
 Assembly_GoodCoralSymbiont_000001-005000_blastx2nr.xml
 Assembly_GoodCoralSymbiont_005001-010000_blastx2nr.xml
 …
-###parse .xml files into one big .txt file
+## #parse .xml files into one big .txt file
 [ysawall@turing1 nr]$ nano Parse_nr_results.sh
 #!/bin/bash
 
@@ -846,7 +846,7 @@ module load biopython/1.64
 Assembly_GoodCoralSymbiont_000001-005000_blastx2uniprot_sprot.txt
 Assembly_GoodCoralSymbiont_005001-010000_blastx2uniprot_sprot.txt
 …
-###cat .txt files into one big .txt file
+## #cat .txt files into one big .txt file
 [ysawall@turing1 uniprot_sprot]$ cat *.txt > All_sprot_GoodCoralSym_blastx2uniprot_sprot.txt
 ```
 
@@ -894,7 +894,7 @@ Shorten names of contigs of GoodCoral and GoodSymbiont fasta files
 /cm/shared/courses/dbarshis/RedSea/fastas/totalannotation
 [ysawall@turing1 totalannotation]$ /cm/shared/courses/dbarshis/15AdvBioinf/scripts/trimfastanames_advbioinf.py Assembly_79276ofSEQS_GoodCoral.fasta coral
 [ysawall@turing1 totalannotation]$ /cm/shared/courses/dbarshis/15AdvBioinf/scripts/trimfastanames_advbioinf.py Assembly_79978ofSEQS_GoodSymbiont.fasta symbiont
-### new files: Assembly_79276ofSEQS_GoodCoral_shortnames.fasta, Assembly_79978ofSEQS_GoodSymbiont_shortnames.fasta
+## # new files: Assembly_79276ofSEQS_GoodCoral_shortnames.fasta, Assembly_79978ofSEQS_GoodSymbiont_shortnames.fasta
 ```
 
 Combine *shortnames.fasta files
@@ -981,7 +981,7 @@ compiling extracted information ...
 ...
 ```
 
-##31-05-2016 - sequence counts 
+## 31-05-2016 - sequence counts 
 start qrsh session
 mkdir "samfiles" and mv all sam files in there
 summarize the expression counts from the sam files usiing the scirpt "countxpression_advbioinf.py"
@@ -1045,7 +1045,7 @@ Filename        Total#Reads     NumContigsMatched       NumUnaligned    NumAlign
 2012-YAN-6_R1_clippedtrimmedfilterd.sam 10644644        61471   3836690 6807954 0       6807954 2437041 0.229
 ```
 
-##=====01-06-2016 – prepare sequence counts for analyses in R##=
+## =====01-06-2016 – prepare sequence counts for analyses in R## =
 Take file with sequence names only from the GoodCoralSymbiont fasta file (used for mapping)
 ```
 [ysawall@cr-046 mapping]$ pwd
@@ -1079,7 +1079,7 @@ TR100007|c0_g1_i1_symbiont      0       0       0       0       0       0       
 ```
 transfer Allcountsout.txt to own computer (WinSCP)
 
-##=====03-06-2016 – prepare sequence counts for analyses in R##=
+## =====03-06-2016 – prepare sequence counts for analyses in R## =
 Installed R and RStudio
 Installed DESeq2
 ```
@@ -1123,7 +1123,7 @@ made sure, that the sample names are the same in the count and condition data fr
 [1] 159254     48
 ```
 
-##=====06-06-2016 – run DESeq analyses in R##=
+## =====06-06-2016 – run DESeq analyses in R## =
 Run statistics with DESeq2
 ```
 > dds <- DESeqDataSetFromMatrix(countData=countTable, colData=conds, design=~ site)
@@ -1373,7 +1373,7 @@ The following object is masked from ‘package:stats’:
 #IMPORTANT to finish the plot (pdf document) by running dev.off at the end!! Otherwise the pdf can not be opened.
 
 ```
-##=====07&08-06-2016 – run DESeq analyses in R##=
+## =====07&08-06-2016 – run DESeq analyses in R## =
 **Assess similarity between samples**
 rlog-transform data to decrease dominance of strongly expressed genes
 ```
@@ -1597,7 +1597,7 @@ TR146200|c3_g6_i5_symbiont 9.066086e-12
 
 ```
 
-##=====09-06-2016 – run DESeq analyses in R##=
+## =====09-06-2016 – run DESeq analyses in R## =
 **Heat maps again for all contigs and for coral and symbionts separately**
 Note: I reorganized the order of the samples, from north to south, therefore I had to start again with the DESeq analyses...
 
@@ -1760,7 +1760,7 @@ low counts [2]   : 14750, 21%
 [2] see 'independentFiltering' argument of ?results
 ```
 
-##=== 04-11-2016 – Re-Annotation of TREMBLE blasting result ##=
+## === 04-11-2016 – Re-Annotation of TREMBLE blasting result ## =
 After TrEMBL bla-sting was finished, results were annotated...
 
 # combine all TrEMBLE.txt files into one big file
@@ -1826,7 +1826,7 @@ TR1924|c0_g1_i2 TR1924_c0_g1
 
 Where you give each contig a "gene" name. In the above example the counts for TR1924|c0_g1_i1 and TR1924|c0_g1_i2 would be summed together (since they are both isoforms of TR1924|c0_g1) into one count for TR1924_c0_g1. I've taken out the "|" symbols in the second column because they cause problems with grep-ing and other command line functions. You should be able to make this table easily in excel by starting with a single column of all the sequence names and pulling out just the names up to "_g1"
 
-##=====07-11-2016 – Mapping (Mikhail Matz protocol)##=
+## =====07-11-2016 – Mapping (Mikhail Matz protocol)## =
 mkdir Bowtie2_mapping and cp all sample fast files in there, as well as the  Assembly_GoodCoralSymbiont_formappim.fasta --> **Done**
 download Mikhail's scripts from github
 ```
@@ -1963,7 +1963,7 @@ Prepare isoform tab table
 ```
 Table does **not** list what we need (it needs to be 2 columns with the second column listing the contig name without the isoform)
 
-##=====08-11-2016 – Mapping (Mikhail Matz protocol)##=
+## =====08-11-2016 – Mapping (Mikhail Matz protocol)## =
 Do bowtie2 mapping again, listing each sample sequence individually (input and output file)
 ```
 [ysawall@turing1 Bowtie2_mapping]$ nano bt2mapping_all.sh
@@ -2033,7 +2033,7 @@ Your job 214943 ("bt2mapping_2.sh") has been submitted
 Mapping was successful and created a sam file for each sample. 
 In summary, the number of reads is mostly between 8 and 15 million of which 30-35% could not be aligned, 20-25 % were aligned once and 40-45 % were aligned > 1 time. In average about 67 % of reads could be aligned.
 
-##=====09-11-2016 – isoform table ##=
+## =====09-11-2016 – isoform table ## =
 Decided to do isoform table by hand in excel.
 Take formally created seq2iso.tab file and change it to .txt file. Than copy isoform table to computer using scp. Not trivial! Finally figured it out...
 ```
@@ -2054,7 +2054,7 @@ I think it was an end of line character issue. Basically, there is an actual cha
 
 Downloaded TextWrangler.
 
-##=====11-11-2016 – create count tables##=
+## =====11-11-2016 – create count tables## =
 Create count file with one sample, first, to see, if it works.
 
 ```
@@ -2135,7 +2135,7 @@ disregarding reads mapping to multiple isogroups
 Killed
 ```
 
-##=====Beginning of 2017 – make isoform table and count table again ##=
+## =====Beginning of 2017 – make isoform table and count table again ## =
 with Mikhail's help...
 Found out that the isoform table is wrong, therefore I re-did the isoform table following Mikhail's suggestion
 ```
